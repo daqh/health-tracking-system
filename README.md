@@ -10,7 +10,7 @@ I concetti sulla base dei quali, sono state motivate le scelte relative ai servi
 
 ## Architettura
 
-<schema dell'architettura (In assenza dei servizi)>
+![General Architecture](assets/Health%20Tracking%20System%20-%20General%20Architecture.drawio.png)
 
 ### Frontend
 
@@ -38,5 +38,5 @@ Dovendo sviluppare un prodotto ospitato mediante i servizi di Micorosft Azure, l
 
 Reference: [Deploy to Azure Functions](https://prisma.io/docs/guides/deployment/serverless/deploy-to-azure-functions)
 
-![Immagine](assets/Health%20Tracking%20System%20-%20Cloud%20Computing.drawio.png)
+![Cloud Architecture](assets/Health%20Tracking%20System%20-%20Cloud%20Computing.drawio.png)
 
