@@ -20,7 +20,7 @@ Di seguito è riportata l'architettura generale del sistema, progettato indipend
 
 ### Frontend
 
-### App Service vs Static Web App
+#### App Service vs Static Web App
 
 Nonostante il titolo della sezione, tra le diverse componenti che strutturano questa architettura, il frontend sicuramente si distingue per l'assenza di *Trade Off* nella scelta del servizio, infatti, nonostante la nostra applicazione non abbia la necessità di gestire un frontend molto complesso, l'utilizzo di un framework è desiderabile al fine di scrivere interfacce complesse evitando la ridondanza del codice. In generale, per la maggior parte delle applicazioni, questo può essere guidato principalmente da motivazioni estetiche, sulla base di varie ed eventuali componenti più o meno accattivanti che sono integrati in maniera predefinita nei framework frontend o sviluppati da autori di terze parti.
 
@@ -30,7 +30,7 @@ Nel caso specifico di questo progetto, le caratteristiche che hanno guidato la s
 
 <lista degli endpoint da esporre>
 
-### Azure Functions vs App Service
+#### Azure Functions vs App Service
 
 Aa
 
