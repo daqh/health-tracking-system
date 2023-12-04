@@ -12,7 +12,11 @@ I concetti sulla base dei quali, sono state motivate le scelte relative ai servi
 
 ### Frontend
 
-Tra le diverse componenti che strutturano questa architettura, il frontend sicuramente si distingue per l'assenza di *Trade Off* nella scelta del servizio, infatti in questo caso, la scelta che ci riguarda è relativa a quale framework utilizzare. In generale, per la maggior parte delle applicazioni, questo può essere guidato principalmente da motivazioni estetiche, sulla base di vari ed eventuali componenti più o meno belli che sono integrati in maniera predefinita nei framework frontend o sviluppati da autori di terze parti. Nel caso specifico di questo sistema, le caratteristiche che hanno guidato la scelta di questo framework sono: essere *lightweight* ed esente da elementi che potrebbero appesantire il caricamento delle interfacce; integrabile facilmente con la libreria Bootstrap nella versione 5.3 (che al momento della scrittura rappresenta l'ultima versione in distribuzione); la possibilità di implementare e visualizzare facilmente grafici che visualizzino l'andamento dei valori descritti dai dispositivi IoT.
+### App Service vs Static Web App
+
+Nonostante il titolo della sezione, tra le diverse componenti che strutturano questa architettura, il frontend sicuramente si distingue per l'assenza di *Trade Off* nella scelta del servizio, infatti, nonostante la nostra applicazione non abbia la necessità di gestire un frontend molto complesso, l'utilizzo di un framework è desiderabile al fine di scrivere interfacce complesse evitando la ridondanza del codice. In generale, per la maggior parte delle applicazioni, questo può essere guidato principalmente da motivazioni estetiche, sulla base di varie ed eventuali componenti più o meno accattivanti che sono integrati in maniera predefinita nei framework frontend o sviluppati da autori di terze parti.
+
+Nel caso specifico di questo progetto, le caratteristiche che hanno guidato la scelta di questo framework sono: essere *lightweight* ed esente da elementi che potrebbero appesantire il caricamento delle interfacce; integrabile facilmente con la libreria Bootstrap nella versione 5.3 (che al momento della scrittura rappresenta l'ultima versione in distribuzione); la possibilità di implementare e visualizzare facilmente grafici che visualizzino l'andamento dei valori descritti dai dispositivi IoT.
 
 ### APIs
 
@@ -32,4 +36,5 @@ Dovendo sviluppare un prodotto ospitato mediante i servizi di Micorosft Azure, l
 
 Reference: [Deploy to Azure Functions](https://prisma.io/docs/guides/deployment/serverless/deploy-to-azure-functions)
 
-<schema dell'architettura definitivo>
+![Immagine](assets/architecture.png)
+
