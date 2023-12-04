@@ -38,5 +38,5 @@ Dovendo sviluppare un prodotto ospitato mediante i servizi di Micorosft Azure, l
 
 Reference: [Deploy to Azure Functions](https://prisma.io/docs/guides/deployment/serverless/deploy-to-azure-functions)
 
-![Immagine](assets/architecture.png)
+![Immagine](assets/Health%20Tracking%20System%20-%20Cloud%20Computing.drawio.png)
 
