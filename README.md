@@ -14,6 +14,10 @@ Di seguito è riportata l'architettura generale del sistema, progettato indipend
 
 ![General Architecture](assets/Health%20Tracking%20System%20-%20General%20Architecture.drawio.png)
 
+## Architettura Cloud
+
+![Cloud Architecture](assets/Health%20Tracking%20System%20-%20Cloud%20Computing.drawio.png)
+
 ### Frontend
 
 ### App Service vs Static Web App
@@ -39,7 +43,3 @@ Dovendo sviluppare un prodotto ospitato mediante i servizi di Micorosft Azure, l
 #### Deploy Node.js-based app using Prsima to Azure Functions
 
 Reference: [Deploy to Azure Functions](https://prisma.io/docs/guides/deployment/serverless/deploy-to-azure-functions)
-
-## Architettura Cloud
-
-![Cloud Architecture](assets/Health%20Tracking%20System%20-%20Cloud%20Computing.drawio.png)
