@@ -1,3 +1,5 @@
+![Health Tracking](assets/Health%20Tracking%20-%20Cloud%20Computing%20Course%20Project%20Banner.png)
+
 # Health Traking System
 
 health-tracking-system è un sistema Cloud-based ideato per il tracciamento di dati sanitari da dispositivi IoT, realizzato come progetto Universitario per il corso di *Cloud Computing* del dipartimento di informatica presso l'Università degli Studi di Salerno.
