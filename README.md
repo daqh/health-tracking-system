@@ -8,6 +8,8 @@ health-tracking-system è un sistema Cloud-based ideato per il tracciamento di d
 
 I concetti sulla base dei quali, sono state motivate le scelte relative ai servizi e alle tecnologie impiegate per la realizzazione di questo servizio sono due: la **semplicità di migrazione**, intesa come la capacità di poter cambiare in maniera economica e veloce il *Cloud Provider* di riferimento, in questo caso rappresentato da *Microsoft Azure*; il desiderio di scrivere **meno codice**, prediligendo soluzioni *ready-to-use* tipiche del *Cloud Computing*.
 
+## Architettura
+
 <schema dell'architettura (In assenza dei servizi)>
 
 ### Frontend
