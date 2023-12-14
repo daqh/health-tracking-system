@@ -57,7 +57,8 @@ az functionapp create --name $FUNCTION_APP --storage-account $STORAGE_ACCOUNT --
 
 cd device-function-app
 npx prisma generate # Generate the Prisma client
-func azure functionapp publish my-project-function-app # Deploy the function app
+npx prisma db push
+func azure functionapp publish $FUNCTION_APP # Deploy the function app
 cd ..
 
 # END: Azure Functions
