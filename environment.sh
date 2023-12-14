@@ -6,7 +6,7 @@ PROJECT_NAME="my-project"
 SAFE_PROJECT_NAME="htsproject"
 LOCATION="italynorth"
 RESOURCE_GROUP_SUFFIX="resource-group"
-GLOBAL_IP="151.75.65.55"
+GLOBAL_IP="<YOUR_LOCAL_IP_HERE>"
 
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -15,7 +15,7 @@ SQL_SERVR_SUFFIX="sql-server"
 SQL_DATABASE_SUFFIX="database"
 SQL_SHADOW_DATABASE_SUFFIX="shadow"
 # ++++ CHANGE THESE VALUES ++++
-SQL_SERVER_ADMIN="<ADMIN_USER_HERE>"
+SQL_SERVER_ADMIN="<ADMIN_USER_HEA>"
 SQL_SERVER_PASSWORD="<PASSWORD_HERE>"
 # END: SQL Server variables
 # ..........................
