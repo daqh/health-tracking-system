@@ -4,6 +4,14 @@
 
 health-tracking-system è un sistema Cloud-based ideato per il tracciamento di dati sanitari da dispositivi IoT, realizzato come progetto Universitario per il corso di *Cloud Computing* del dipartimento di informatica presso l'Università degli Studi di Salerno.
 
+## Come installare il progetto
+
+1. Eseguire il login ad un Account Azure mediante la CLI;
+
+1. Modificare [environment.sh](https://github.com/daqh/health-tracking-system/blob/main/environment.sh) definendo le impostazioni del tuo progetto;
+
+1. Eseguire il file `./install.sh`.
+
 ## Missione
 
 <descrizione del progetto>
