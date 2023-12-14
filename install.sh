@@ -55,12 +55,20 @@ az resource create --resource-type "Microsoft.Insights/components" --name $APPIN
 echo "Creating the function app $FUNCTION_APP"
 az functionapp create --name $FUNCTION_APP --storage-account $STORAGE_ACCOUNT --resource-group $RESOURCE_GROUP --consumption-plan-location westeurope --runtime node --runtime-version 20 --functions-version 4 --os-type Linux --app-insights $APPINSIGHTS_NAME
 
+# END: Azure Functions
+# =========================
+# .........................
+# =========================
+# Begin: Deploy the function app
+
 cd device-function-app
 npx prisma generate # Generate the Prisma client
 npx prisma db push
 func azure functionapp publish $FUNCTION_APP # Deploy the function app
 cd ..
 
-# END: Azure Functions
+# End: Deploy the function app
+# =========================
+# .........................
 # =========================
 
