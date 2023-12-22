@@ -24,8 +24,9 @@ echo "Creating the database $SQL_DATABASE"
 az sql db create --resource-group $RESOURCE_GROUP --server $SQL_SERVER --name $SQL_DATABASE --free-limit true --free-limit-exhaustion-behavior AutoPause --edition GeneralPurpose --compute-model Serverless --family Gen5 --capacity 1
 
 # Create the shadow database (needed by Prisma ORM during migrations)
-#echo "Creating the shadow database $SQL_SHADOW_DATABASE"
-az sql db create --resource-group $RESOURCE_GROUP --server $SQL_SERVER --name $SQL_SHADOW_DATABASE --edition GeneralPurpose --compute-model Serverless --family Gen5 --capacity 1 --zone-redundant false
+# ONLY FOR DEVELOPMENT
+# echo "Creating the shadow database $SQL_SHADOW_DATABASE"
+# az sql db create --resource-group $RESOURCE_GROUP --server $SQL_SERVER --name $SQL_SHADOW_DATABASE --edition GeneralPurpose --compute-model Serverless --family Gen5 --capacity 1 --zone-redundant false
 
 # Generate the .env file for the device-function-app
 echo "" > device-function-app/.env
@@ -61,14 +62,17 @@ az functionapp create --name $FUNCTION_APP --storage-account $STORAGE_ACCOUNT --
 # =========================
 # Begin: Deploy the function app
 
-cd device-function-app
-npx prisma generate # Generate the Prisma client
-npx prisma db push
-func azure functionapp publish $FUNCTION_APP # Deploy the function app
-cd ..
+# cd device-function-app
+# npx prisma generate # Generate the Prisma client
+# npx prisma db push
+# func azure functionapp publish $FUNCTION_APP # Deploy the function app
+# cd ..
 
 # End: Deploy the function app
 # =========================
 # .........................
 # =========================
+# BEGIN: Azure Stream Analytics Job
+
+az stream-analytics job create --name $STREAM_ANALYTICS_JOB --resource-group $RESOURCE_GROUP --transformation name="transformationSAJ" streaming-units=1
 
