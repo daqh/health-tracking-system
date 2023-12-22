@@ -15,9 +15,11 @@ az sql server create --location $LOCATION --resource-group $RESOURCE_GROUP --nam
 echo "Creating the firewall rule to allow all Azure IPs"
 az sql server firewall-rule create --resource-group $RESOURCE_GROUP --server $SQL_SERVER --start-ip-address "0.0.0.0" --end-ip-address "0.0.0.0" --name "AllowAllAzureIPs"
 
-# Create the firewall rule to allow your IP
-echo "Creating the firewall rule to allow your IP"
-az sql server firewall-rule create --resource-group $RESOURCE_GROUP --server $SQL_SERVER --start-ip-address $GLOBAL_IP --end-ip-address $GLOBAL_IP --name "AllowMyIP"
+if [ "$DEVELOPMENT" = "true" ]; then
+    # Create the firewall rule to allow your IP
+    echo "Creating the firewall rule to allow your IP"
+    az sql server firewall-rule create --resource-group $RESOURCE_GROUP --server $SQL_SERVER --start-ip-address $GLOBAL_IP --end-ip-address $GLOBAL_IP --name "AllowMyIP"
+fi
 
 # Create the database
 echo "Creating the database $SQL_DATABASE"
@@ -25,8 +27,10 @@ az sql db create --resource-group $RESOURCE_GROUP --server $SQL_SERVER --name $S
 
 # Create the shadow database (needed by Prisma ORM during migrations)
 # ONLY FOR DEVELOPMENT
-# echo "Creating the shadow database $SQL_SHADOW_DATABASE"
-# az sql db create --resource-group $RESOURCE_GROUP --server $SQL_SERVER --name $SQL_SHADOW_DATABASE --edition GeneralPurpose --compute-model Serverless --family Gen5 --capacity 1 --zone-redundant false
+if [ "$DEVELOPMENT" = "true" ]; then
+    echo "Creating the shadow database $SQL_SHADOW_DATABASE"
+    az sql db create --resource-group $RESOURCE_GROUP --server $SQL_SERVER --name $SQL_SHADOW_DATABASE --edition GeneralPurpose --compute-model Serverless --family Gen5 --capacity 1 --zone-redundant false
+fi
 
 # Generate the .env file for the device-function-app
 echo "" > device-function-app/.env
