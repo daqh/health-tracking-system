@@ -66,11 +66,11 @@ az functionapp create --name $FUNCTION_APP --storage-account $STORAGE_ACCOUNT --
 # =========================
 # Begin: Deploy the function app
 
-# cd device-function-app
-# npx prisma generate # Generate the Prisma client
-# npx prisma db push
-# func azure functionapp publish $FUNCTION_APP # Deploy the function app
-# cd ..
+cd device-function-app
+npx prisma generate # Generate the Prisma client
+npx prisma db push
+func azure functionapp publish $FUNCTION_APP # Deploy the function app
+cd ..
 
 # End: Deploy the function app
 # =========================
@@ -78,5 +78,13 @@ az functionapp create --name $FUNCTION_APP --storage-account $STORAGE_ACCOUNT --
 # =========================
 # BEGIN: Azure Stream Analytics Job
 
-az stream-analytics job create --name $STREAM_ANALYTICS_JOB --resource-group $RESOURCE_GROUP --transformation name="transformationSAJ" streaming-units=1
+# az stream-analytics job create --name $STREAM_ANALYTICS_JOB --resource-group $RESOURCE_GROUP --transformation name="transformationSAJ" streaming-units=1
 
+# END: Azure Stream Analytics Job
+# =========================
+# .........................
+# =========================
+# BEGIN: Azure Static Web App
+
+az staticwebapp create --name $STATIC_WEB_APP --resource-group $RESOURCE_GROUP 
+swa deploy --resource-group my-project-resource-group --app-name my-project-static-web-app --env $STATIC_WEB_APP_ENV
