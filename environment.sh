@@ -6,6 +6,7 @@ PROJECT_NAME="my-project"
 SAFE_PROJECT_NAME="htsproject"
 LOCATION="italynorth"
 RESOURCE_GROUP_SUFFIX="resource-group"
+GLOBAL_IP="<>"
 DEVELOPMENT="false" # Set to "true" if you want to create the shadow database
 
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -31,6 +32,7 @@ APPINSIGHTS_SUFFIX="app-insights"
 # Begin: Stream Analytics Job variables
 STREAM_ANALYTICS_JOB_SUFFIX="stream-analytics-job"
 # END: Stream Analytics Job variables
+STATIC_WEB_APP_SUFFIX="static-web-app"
 
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -44,6 +46,7 @@ STORAGE_ACCOUNT="$SAFE_PROJECT_NAME$STORAGE_ACCOUNT_SUFFIX"
 FUNCTION_APP="$PROJECT_NAME-$FUNCTION_APP_SUFFIX"
 APPINSIGHTS_NAME="$PROJECT_NAME-$APPINSIGHTS_SUFFIX"
 STREAM_ANALYTICS_JOB="$PROJECT_NAME-$STREAM_ANALYTICS_JOB_SUFFIX"
+STATIC_WEB_APP="$PROJECT_NAME-$STATIC_WEB_APP_SUFFIX"
 
 # Database URL for Prisma ORM and provider sqlserver (https://www.prisma.io/docs/reference/database-reference/connection-urls)
 DATABASE_URL="sqlserver://$SQL_SERVER.database.windows.net:1433;database=$SQL_DATABASE;user=$SQL_SERVER_ADMIN;password=$SQL_SERVER_PASSWORD"
@@ -51,3 +54,9 @@ SHADOW_DATABASE_URL="sqlserver://$SQL_SERVER.database.windows.net:1433;database=
 # END: DO NOT MODIFY
 
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+if [ "$DEVELOPMENT" = "true" ]; then
+    $STATIC_WEB_APP_ENV="preview"
+else
+    $STATIC_WEB_APP_ENV="production"
+fi
