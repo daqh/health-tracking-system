@@ -3,7 +3,7 @@
   "configurations": {
     "health-tracking-system": {
       "appLocation": "ng-hts",
-      "outputLocation": "ng-hts/dist/ng-hts/browser",
+      "outputLocation": "ng-hts/dist/ng-hts",
       "run": "npm start",
       "appDevserverUrl": "http://localhost:4200",
       "appName": "my-project-static-web-app",
