@@ -1,0 +1,12 @@
+<div class="mb-3">
+    <a [routerLink]="['/device', 'create']" class="btn btn-outline-primary">
+        Create Device
+    </a>
+</div>
+<div *ngFor="let device of [0, 1, 2]" class="card mb-3 shadow-lg">
+    <div class="card-body">
+        <h5 class="card-title">Device {{device}}</h5>
+        <p class="card-text">This is a device.</p>
+        <a [routerLink]="['/device', device]" class="btn btn-primary">Go somewhere</a>
+    </div>
+</div>
