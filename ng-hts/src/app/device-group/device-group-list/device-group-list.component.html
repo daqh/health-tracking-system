@@ -1,5 +1,13 @@
 <h2 class="display-2">Device Group List</h2>
 
+<div class="btn-group mb-3">
+    <a [routerLink]="['/device', 'create']" class="btn btn-outline-primary">
+      Create Device
+    </a>
+    <button class="btn btn-outline-primary" (click)="onRefresh()">
+      <i class="bi bi-arrow-clockwise"></i>
+    </button>
+</div>
 <div *ngFor="let deviceGroup of deviceGroups" class="card shadow-lg text-bg-secondary mb-3">
     <div class="card-body">
         <h3 class="display-3">Device Group 1</h3>

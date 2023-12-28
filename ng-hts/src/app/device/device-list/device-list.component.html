@@ -1,14 +1,15 @@
 <div class="mb-3">
   <h2 class="display-2">Device List</h2>
 </div>
-<div class="mb-3">
-  <div class="btn-group">
-    <a [routerLink]="['/device', 'create']" class="btn btn-outline-primary">
-      Create Device
-    </a>
-    <button class="btn btn-outline-primary" (click)="onRefresh()">
-      <i class="bi bi-arrow-clockwise"></i>
-    </button>
-  </div>
+<div class="btn-group mb-3">
+  <a [routerLink]="['/device', 'create']" class="btn btn-outline-primary">
+    Create Device
+  </a>
+  <button class="btn btn-outline-primary" (click)="onRefresh()">
+    <i class="bi bi-arrow-clockwise"></i>
+  </button>
 </div>
-<app-device-list-item *ngFor="let device of devices" [device]="device"></app-device-list-item>
+<app-device-list-item
+  *ngFor="let device of devices"
+  [device]="device"
+></app-device-list-item>
