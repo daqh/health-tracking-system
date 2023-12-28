@@ -45,6 +45,7 @@ echo "SHADOW_DATABASE_URL=\"$SHADOW_DATABASE_URL\"" >> device-function-app/.env
 
 echo "Creating the IoT Hub $IOT_HUB"
 az iot hub create -n $IOT_HUB --resource-group $RESOURCE_GROUP --sku F1 --partition-count 2 --location westeurope # F1 sku allows free 500 devices and 8000 messages per day
+echo IOT_HUB_CONNECTION_STRING="$( az iot hub connection-string show --hub-name $IOT_HUB --resource-group $RESOURCE_GROUP | jq '.connectionString' )" >> device-function-app/.env
 
 # END: Azure IoT Hub
 # =========================
@@ -64,18 +65,6 @@ az functionapp create --name $FUNCTION_APP --storage-account $STORAGE_ACCOUNT --
 # =========================
 # .........................
 # =========================
-# Begin: Deploy the function app
-
-cd device-function-app
-npx prisma generate # Generate the Prisma client
-npx prisma db push
-func azure functionapp publish $FUNCTION_APP # Deploy the function app
-cd ..
-
-# End: Deploy the function app
-# =========================
-# .........................
-# =========================
 # BEGIN: Azure Stream Analytics Job
 
 # az stream-analytics job create --name $STREAM_ANALYTICS_JOB --resource-group $RESOURCE_GROUP --transformation name="transformationSAJ" streaming-units=1
@@ -86,5 +75,20 @@ cd ..
 # =========================
 # BEGIN: Azure Static Web App
 
-az staticwebapp create --name $STATIC_WEB_APP --resource-group $RESOURCE_GROUP 
+az staticwebapp create --name $STATIC_WEB_APP --resource-group $RESOURCE_GROUP
+echo "Creating the static web app $STATIC_WEB_APP to the environment $STATIC_WEB_APP_ENV"
 swa deploy --resource-group my-project-resource-group --app-name my-project-static-web-app --env $STATIC_WEB_APP_ENV
+
+# =========================
+# .........................
+# =========================
+# Begin: Deploy the function app
+
+cd device-function-app
+npx prisma generate # Generate the Prisma client
+npx prisma db push
+func azure functionapp publish $FUNCTION_APP # Deploy the function app
+cd ..
+
+# End: Deploy the function app
+# =========================
