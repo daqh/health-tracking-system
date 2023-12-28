@@ -11,6 +11,7 @@ import {
   PopupRequest,
   RedirectRequest,
 } from '@azure/msal-browser';
+import { environment } from 'src/environment/environment';
 
 @Component({
   selector: 'app-root',

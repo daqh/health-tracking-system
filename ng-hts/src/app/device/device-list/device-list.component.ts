@@ -26,7 +26,7 @@ export class DeviceListComponent implements OnInit {
     this.loading = true;
     this.deviceService.listDevices().subscribe({
       next: (v) => {
-        this.devices = v;
+        this.devices = v
         this.loading = false;
       },
       error: (err) => {

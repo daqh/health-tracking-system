@@ -13,3 +13,6 @@
   *ngFor="let device of devices"
   [device]="device"
 ></app-device-list-item>
+<div *ngIf="devices.length === 0 && !loading" class="alert alert-warning">
+  No devices found.
+</div>

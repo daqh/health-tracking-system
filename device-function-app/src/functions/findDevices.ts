@@ -15,15 +15,13 @@ export async function findDevices(
 ): Promise<HttpResponseInit> {
   const devices = await prisma.device.findMany({
     include: {
-      DeviceType: true,
+      deviceType: true,
     },
   });
 
   return {
     status: 200,
-    jsonBody: {
-      devices: devices,
-    },
+    jsonBody: devices,
   };
 }
 

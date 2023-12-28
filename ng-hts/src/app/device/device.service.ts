@@ -2,26 +2,39 @@ import { Injectable } from '@angular/core';
 import { Device } from './models/device.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environment/environment';
 
 @Injectable()
 export class DeviceService {
   constructor(private httpClient: HttpClient) {}
 
   public listDevices(): Observable<Device[]> {
-    // return this.httpClient.get<Device[]>('http://localhost:3000/devices');
-    return new Observable<Device[]>((observer) => {
-      setTimeout(() => {
-        observer.next([
-          {
-            id: 1,
-            connectionString: 'ocvmocvm2yu5inv34uy5vi8b3y4785vyn3487nc56y78346y',
-          },
-          {
-            id: 2,
-            connectionString: 'c34m80237c5n892347nc59827958c723n985cn7238973987',
-          },
-        ]);
-      }, 1000);
-    });
+    return this.httpClient.get<Device[]>(`${environment.apiBaseUrl}/device`);
+  }
+
+  public createDevice(device: Device): Observable<Device> {
+    return this.httpClient.post<Device>(
+      `${environment.apiBaseUrl}/device`,
+      device
+    );
+  }
+
+  public updateDevice(device: Device): Observable<Device> {
+    return this.httpClient.put<Device>(
+      `${environment.apiBaseUrl}/device/${device.id}`,
+      device
+    );
+  }
+
+  public deleteDevice(device: Device): Observable<Device> {
+    return this.httpClient.delete<Device>(
+      `${environment.apiBaseUrl}/device/${device.id}`
+    );
+  }
+
+  public getDevice(id: string): Observable<Device> {
+    return this.httpClient.get<Device>(
+      `${environment.apiBaseUrl}/device/${id}`
+    );
   }
 }

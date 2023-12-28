@@ -1,6 +1,34 @@
 <div class="mb-3">
-    <h2 class="display-2">Create Device</h2>
+  <h2 class="display-2">Create Device</h2>
 </div>
-<form>
-    <input type="text" class="form-control mb-3" placeholder="Device name" />
+<form (ngSubmit)="onSubmit()" #deviceForm="ngForm">
+  <div class="mb-3">
+    <label for="connectionString" class="form-label">Connection String</label>
+    <input
+      [(ngModel)]="device.connectionString"
+      type="text"
+      class="form-control"
+      id="connectionString"
+      name="connectionString"
+      placeholder="Device Connection String"
+      required
+      #connectionString="ngModel"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="deviceTypeId" class="form-label">Device Type</label>
+    <input
+      [(ngModel)]="device.deviceTypeId"
+      type="number"
+      class="form-control"
+      id="deviceTypeId"
+      name="deviceTypeId"
+      placeholder="Device Connection String"
+      required
+      #connectionString="ngModel"
+    />
+  </div>
+  <button type="submit" [disabled]="!deviceForm.valid" class="btn btn-primary">
+    Submit
+  </button>
 </form>

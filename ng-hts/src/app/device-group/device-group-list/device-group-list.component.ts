@@ -18,14 +18,14 @@ export class DeviceGroupListComponent implements OnInit {
   }
 
   listDeviceGroups() {
-    this.deviceGroupService.listDeviceGroups().subscribe({
-      next: (deviceGroups) => {
-        this.deviceGroups = deviceGroups;
-      },
-      error: (err) => {
-        console.error(err);
-      },
-    });
+    // this.deviceGroupService.listDeviceGroups().subscribe({
+    //   next: (deviceGroups) => {
+    //     this.deviceGroups = deviceGroups;
+    //   },
+    //   error: (err) => {
+    //     console.error(err);
+    //   },
+    // });
   }
 
   onRefresh() {

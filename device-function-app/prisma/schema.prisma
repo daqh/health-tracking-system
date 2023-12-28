@@ -4,9 +4,9 @@ generator client {
 }
 
 datasource db {
-  provider          = "sqlserver"
-  url               = env("DATABASE_URL")
-  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+  // shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model DeviceType {
@@ -19,8 +19,8 @@ model Device {
   id               Int          @id @default(autoincrement())
   connectionString String
   deviceTypeId     Int
-  DeviceType       DeviceType   @relation(fields: [deviceTypeId], references: [id])
-  DeviceGroup      DeviceGroup? @relation(fields: [deviceGroupId], references: [id])
+  deviceType       DeviceType   @relation(fields: [deviceTypeId], references: [id])
+  deviceGroup      DeviceGroup? @relation(fields: [deviceGroupId], references: [id])
   deviceGroupId    Int?
 }
 

@@ -7,24 +7,17 @@ import { DeviceCreateComponent } from './device-create/device-create.component';
 import { DeviceService } from './device.service';
 import { HttpClientModule } from '@angular/common/http';
 import { DeviceListItemComponent } from './device-list-item/device-list-item.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     DeviceListComponent,
     DeviceDetailComponent,
     DeviceCreateComponent,
-    DeviceListItemComponent
+    DeviceListItemComponent,
   ],
-  imports: [
-    CommonModule,
-    DeviceRoutingModule,
-    HttpClientModule
-  ],
-  providers: [
-    DeviceService
-  ],
-  exports: [
-    DeviceListItemComponent
-  ]
+  imports: [CommonModule, DeviceRoutingModule, HttpClientModule, FormsModule],
+  providers: [DeviceService],
+  exports: [DeviceListItemComponent],
 })
-export class DeviceModule { }
+export class DeviceModule {}
