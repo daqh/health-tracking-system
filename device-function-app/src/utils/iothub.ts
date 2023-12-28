@@ -1,7 +1,9 @@
-var iothub = require('azure-iothub');
+import { Registry } from 'azure-iothub';
 
-const connectionString = process.env.IOTHUB_CONNECTION_STRING;
+const connectionString = process.env.IOT_HUB_CONNECTION_STRING;
 
-const registry = iothub.Registry.fromConnectionString(connectionString);
+console.log(connectionString);
+
+const registry = Registry.fromConnectionString(connectionString);
 
 export default registry;

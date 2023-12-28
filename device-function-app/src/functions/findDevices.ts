@@ -4,7 +4,7 @@ import {
   HttpResponseInit,
   InvocationContext,
 } from "@azure/functions";
-
+import registry from "../utils/iothub";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
