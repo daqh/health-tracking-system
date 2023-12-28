@@ -4,8 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo : 'dashboard',
-    pathMatch : 'full',
+    redirectTo: 'dashboard',
+    pathMatch: 'full',
   },
   {
     path: 'dashboard',
@@ -16,6 +16,13 @@ const routes: Routes = [
     path: 'device',
     loadChildren: () =>
       import('./device/device.module').then((m) => m.DeviceModule),
+  },
+  {
+    path: 'device-group',
+    loadChildren: () =>
+      import('./device-group/device-group.module').then(
+        (m) => m.DeviceGroupModule
+      ),
   },
 ];
 

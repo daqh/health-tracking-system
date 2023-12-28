@@ -1,0 +1,8 @@
+<h2 class="display-2">Device Group List</h2>
+
+<div *ngFor="let deviceGroup of deviceGroups" class="card shadow-lg text-bg-secondary mb-3">
+    <div class="card-body">
+        <h3 class="display-3">Device Group 1</h3>
+        <app-device-list-item *ngFor="let device of deviceGroup.devices" [device]="device"></app-device-list-item>
+    </div>
+</div>

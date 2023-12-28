@@ -18,14 +18,9 @@ import {
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  constructor(
-  ) {}
+  constructor() {}
 
-  ngOnInit() {
-    console.log("hewllo");
-  }
+  ngOnInit() {}
 
-  login() {
-    
-  }
+  login() {}
 }

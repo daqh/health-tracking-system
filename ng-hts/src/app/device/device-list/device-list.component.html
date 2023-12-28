@@ -1,12 +1,14 @@
 <div class="mb-3">
+  <h2 class="display-2">Device List</h2>
+</div>
+<div class="mb-3">
+  <div class="btn-group">
     <a [routerLink]="['/device', 'create']" class="btn btn-outline-primary">
-        Create Device
+      Create Device
     </a>
+    <button class="btn btn-outline-primary" (click)="onRefresh()">
+      <i class="bi bi-arrow-clockwise"></i>
+    </button>
+  </div>
 </div>
-<div *ngFor="let device of [0, 1, 2]" class="card mb-3 shadow-lg">
-    <div class="card-body">
-        <h5 class="card-title">Device {{device}}</h5>
-        <p class="card-text">This is a device.</p>
-        <a [routerLink]="['/device', device]" class="btn btn-primary">Go somewhere</a>
-    </div>
-</div>
+<app-device-list-item *ngFor="let device of devices" [device]="device"></app-device-list-item>
