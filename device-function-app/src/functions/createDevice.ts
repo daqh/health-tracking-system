@@ -8,6 +8,8 @@ import { Device } from "../models/Device";
 
 import { PrismaClient } from "@prisma/client";
 
+import iothub from "../utils/iothub";
+
 const prisma = new PrismaClient();
 
 export async function createDevice(
