@@ -6,7 +6,7 @@ PROJECT_NAME="my-project"
 SAFE_PROJECT_NAME="htsproject"
 LOCATION="italynorth"
 RESOURCE_GROUP_SUFFIX="resource-group"
-GLOBAL_IP="<>"
+GLOBAL_IP="$( wget -qO- https://ipecho.net/plain )"
 DEVELOPMENT="false" # Set to "true" if you want to create the shadow database
 
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -16,8 +16,8 @@ SQL_SERVR_SUFFIX="sql-server"
 SQL_DATABASE_SUFFIX="database"
 SQL_SHADOW_DATABASE_SUFFIX="shadow"
 # ++++ CHANGE THESE VALUES ++++
-SQL_SERVER_ADMIN="<>"
-SQL_SERVER_PASSWORD="<>"
+SQL_SERVER_ADMIN="SQL_ADMIN"
+SQL_SERVER_PASSWORD="SQL_PASSWORD"
 # END: SQL Server variables
 # ..........................
 # BEGIN: IoT Hub variables
@@ -56,7 +56,7 @@ SHADOW_DATABASE_URL="sqlserver://$SQL_SERVER.database.windows.net:1433;database=
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 if [ "$DEVELOPMENT" = "true" ]; then
-    $STATIC_WEB_APP_ENV="preview"
+    STATIC_WEB_APP_ENV="preview"
 else
-    $STATIC_WEB_APP_ENV="production"
+    STATIC_WEB_APP_ENV="production"
 fi
