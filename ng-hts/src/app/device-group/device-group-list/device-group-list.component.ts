@@ -11,6 +11,7 @@ export class DeviceGroupListComponent implements OnInit {
   constructor(private deviceGroupService: DeviceGroupService) {}
 
   deviceGroups: DeviceGroup[] = [];
+  loading: boolean = false;
 
   ngOnInit(): void {
     this.listDeviceGroups();
@@ -26,4 +27,9 @@ export class DeviceGroupListComponent implements OnInit {
       },
     });
   }
+
+  onRefresh() {
+    this.listDeviceGroups();
+  }
+
 }
