@@ -3,30 +3,10 @@
 </div>
 <form (ngSubmit)="onSubmit()" #deviceForm="ngForm">
   <div class="mb-3">
-    <label for="connectionString" class="form-label">Connection String</label>
-    <input
-      [(ngModel)]="device.connectionString"
-      type="text"
-      class="form-control"
-      id="connectionString"
-      name="connectionString"
-      placeholder="Device Connection String"
-      required
-      #connectionString="ngModel"
-    />
-  </div>
-  <div class="mb-3">
     <label for="deviceTypeId" class="form-label">Device Type</label>
-    <input
-      [(ngModel)]="device.deviceTypeId"
-      type="number"
-      class="form-control"
-      id="deviceTypeId"
-      name="deviceTypeId"
-      placeholder="Device Connection String"
-      required
-      #connectionString="ngModel"
-    />
+    <select required class="form-select" [(ngModel)]="device.deviceTypeId" name="deviceTypeId">
+      <option *ngFor="let deviceType of deviceTypes" value="{{ deviceType.id }}">{{ deviceType.name }}</option>
+    </select>
   </div>
   <button type="submit" [disabled]="!deviceForm.valid" class="btn btn-primary">
     Submit

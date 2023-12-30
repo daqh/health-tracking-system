@@ -1,13 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Device } from '../models/device.model';
+import { Device, ListDevice } from '../models/device.model';
+import { environment } from 'src/environment/environment';
 
 @Component({
   selector: 'app-device-list-item',
   templateUrl: './device-list-item.component.html',
-  styleUrls: ['./device-list-item.component.css']
+  styleUrls: ['./device-list-item.component.css'],
 })
 export class DeviceListItemComponent {
-
-  @Input() device!: Device;
-
+  environment = environment;
+  @Input() device!: ListDevice;
 }

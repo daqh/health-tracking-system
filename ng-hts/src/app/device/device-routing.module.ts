@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DeviceListComponent } from './device-list/device-list.component';
 import { DeviceDetailComponent } from './device-detail/device-detail.component';
 import { DeviceCreateComponent } from './device-create/device-create.component';
+import { DeviceDeleteComponent } from './device-delete/device-delete.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
   {
     path: 'create',
     component: DeviceCreateComponent,
+  },
+  {
+    path: ':id/delete',
+    component: DeviceDeleteComponent,
   },
   {
     path: ':id',

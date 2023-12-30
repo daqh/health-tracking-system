@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DeviceService } from '../device.service';
-import { Device } from '../models/device.model';
+import { Device, ListDevice } from '../models/device.model';
 
 @Component({
   selector: 'app-device-list',
@@ -10,7 +10,7 @@ import { Device } from '../models/device.model';
 export class DeviceListComponent implements OnInit {
   constructor(private deviceService: DeviceService) {}
 
-  public devices: Device[] = [];
+  public devices: ListDevice[] = [];
   public loading: boolean = false;
 
   ngOnInit(): void {
