@@ -19,15 +19,26 @@ export async function createDevice(
   try {
     const json: any = await request.json();
 
-    const device = await prisma.device.create({
-      data: new Device(json.deviceTypeId),
+    const deviceTypeId = Number(json.deviceTypeId);
+
+    const prismaDevice = await prisma.device.create({
+      data: new Device(deviceTypeId),
       include: {
         deviceType: true,
       },
     });
 
+    const registryDevice = (
+      await registry.create({
+        deviceId: prismaDevice.id.toString(),
+      })
+    ).responseBody;
+
     return {
-      jsonBody: device,
+      jsonBody: {
+        prismaDevice,
+        registryDevice,
+      },
     };
   } catch (error) {
     return {

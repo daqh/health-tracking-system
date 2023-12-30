@@ -13,10 +13,23 @@ export async function findDevices(
   request: HttpRequest,
   context: InvocationContext
 ): Promise<HttpResponseInit> {
-  const devices = await prisma.device.findMany({
+  const prismaDevices = await prisma.device.findMany({
     include: {
       deviceType: true,
     },
+  });
+
+  const registryDevices = (await registry.list()).responseBody;
+
+  const devices = prismaDevices.map((prismaDevice) => {
+    const registryDevice = registryDevices.find(
+      (registryDevice) => registryDevice.deviceId === prismaDevice.id.toString()
+    );
+
+    return {
+      prismaDevice,
+      registryDevice,
+    };
   });
 
   return {

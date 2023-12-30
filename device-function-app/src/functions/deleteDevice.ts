@@ -4,7 +4,7 @@ import {
   HttpResponseInit,
   InvocationContext,
 } from "@azure/functions";
-
+import registry from "../utils/iothub";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -16,15 +16,17 @@ export async function deleteDevice(
   try {
     const deviceId = Number(request.params.deviceId);
 
-    const device = await prisma.device.delete({
+    const prismaDevice = await prisma.device.delete({
       where: {
         id: deviceId,
       },
     });
 
+    await registry.delete(deviceId.toString());
+
     return {
       status: 200,
-      jsonBody: device,
+      jsonBody: prismaDevice,
     };
   } catch (error) {
     switch (error.code) {
@@ -33,7 +35,7 @@ export async function deleteDevice(
           status: 404,
           jsonBody: {
             message: `Device with id ${request.params.deviceId} not found`,
-          }
+          },
         };
       default:
         return {
