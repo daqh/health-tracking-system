@@ -1,5 +1,8 @@
 . ./environment.sh
 
+echo "export const environment = {" > ng-hts/src/environment/environment.prod.ts
+echo -e "\tproduction: true," >> ng-hts/src/environment/environment.prod.ts
+
 # Create the resource group
 echo "Creating the resource group $RESOURCE_GROUP"
 az group create --resource-group $RESOURCE_GROUP --location $LOCATION
@@ -46,6 +49,7 @@ echo "SHADOW_DATABASE_URL=\"$SHADOW_DATABASE_URL\"" >> device-function-app/.env
 echo "Creating the IoT Hub $IOT_HUB"
 az iot hub create -n $IOT_HUB --resource-group $RESOURCE_GROUP --sku F1 --partition-count 2 --location westeurope # F1 sku allows free 500 devices and 8000 messages per day
 echo IOT_HUB_CONNECTION_STRING="$( az iot hub connection-string show --hub-name $IOT_HUB --resource-group $RESOURCE_GROUP | jq '.connectionString' )" >> device-function-app/.env
+echo -e '\tiotHubHostName: "$IOT_HUB.azure-devices.net",' >> ng-hts/src/environment/environment.prod.ts
 
 # END: Azure IoT Hub
 # =========================
@@ -60,6 +64,7 @@ az resource create --resource-type "Microsoft.Insights/components" --name $APPIN
 
 echo "Creating the function app $FUNCTION_APP"
 az functionapp create --name $FUNCTION_APP --storage-account $STORAGE_ACCOUNT --resource-group $RESOURCE_GROUP --consumption-plan-location westeurope --runtime node --runtime-version 20 --functions-version 4 --os-type Linux --app-insights $APPINSIGHTS_NAME
+echo -e '\tapiBaseUrl: "https://$FUNCTION_APP.azurewebsites.net/api",' >> ng-hts/src/environment/environment.prod.ts
 
 # END: Azure Functions
 # =========================
@@ -92,3 +97,5 @@ cd ..
 
 # End: Deploy the function app
 # =========================
+
+echo } >> ng-hts/src/environment/environment.prod.ts
