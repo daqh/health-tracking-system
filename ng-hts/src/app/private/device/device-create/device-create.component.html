@@ -1,0 +1,14 @@
+<div class="mb-3">
+  <h2 class="display-2">Create Device</h2>
+</div>
+<form (ngSubmit)="onSubmit()" #deviceForm="ngForm">
+  <div class="mb-3">
+    <label for="deviceTypeId" class="form-label">Device Type</label>
+    <select required class="form-select" [(ngModel)]="device.deviceTypeId" name="deviceTypeId">
+      <option *ngFor="let deviceType of deviceTypes" value="{{ deviceType.id }}">{{ deviceType.name }}</option>
+    </select>
+  </div>
+  <button type="submit" [disabled]="!deviceForm.valid" class="btn btn-primary">
+    Submit
+  </button>
+</form>

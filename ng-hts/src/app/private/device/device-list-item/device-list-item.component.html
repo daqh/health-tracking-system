@@ -1,0 +1,46 @@
+<div class="card mb-3 shadow-lg">
+  <div class="card-body">
+    <h5 class="card-title">Device {{ device.prismaDevice.id }}</h5>
+    <span class="mb-3 badge rounded-pill text-bg-secondary">{{
+      device.prismaDevice.deviceType.name
+    }}</span>
+    <div class="input-group mb-3">
+      <span class="input-group-text"><i class="bi bi-clipboard"></i></span>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Primary Access Key"
+        value="HostName={{ environment.iotHubHostName }};DeviceId={{
+          device.registryDevice.deviceId
+        }};SharedAccessKey={{
+          device.registryDevice.authentication.symmetricKey.primaryKey
+        }}"
+        readonly
+      />
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text"><i class="bi bi-clipboard"></i></span>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Primary Access Key"
+        value="HostName={{ environment.iotHubHostName }};DeviceId={{
+          device.registryDevice.deviceId
+        }};SharedAccessKey={{
+          device.registryDevice.authentication.symmetricKey.secondaryKey
+        }}"
+        readonly
+      />
+    </div>
+    <a
+      [routerLink]="['/device', device.prismaDevice.id]"
+      class="btn btn-primary me-3"
+      >View</a
+    >
+    <a
+      [routerLink]="['/device', device.prismaDevice.id, 'delete']"
+      class="btn btn-danger"
+      >Delete</a
+    >
+  </div>
+</div>

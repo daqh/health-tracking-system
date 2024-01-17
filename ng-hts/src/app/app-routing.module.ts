@@ -1,35 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { MsalGuard } from '@azure/msal-angular';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full',
+    loadChildren: () =>
+      import('./public/public.module').then((m) => m.PublicModule),
   },
   {
-    path: 'dashboard',
+    path: '',
     loadChildren: () =>
-      import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
-  },
-  {
-    path: 'device',
-    loadChildren: () =>
-      import('./device/device.module').then((m) => m.DeviceModule),
-  },
-  {
-    path: 'device-type',
-    loadChildren: () =>
-      import('./device-type/device-type.module').then(
-        (m) => m.DeviceTypeModule
-      ),
-  },
-  {
-    path: 'device-group',
-    loadChildren: () =>
-      import('./device-group/device-group.module').then(
-        (m) => m.DeviceGroupModule
-      ),
+      import('./private/private.module').then((m) => m.PrivateModule),
+    canActivate: [MsalGuard],
   },
 ];
 
