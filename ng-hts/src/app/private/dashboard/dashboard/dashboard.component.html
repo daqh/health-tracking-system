@@ -1,20 +1,46 @@
 <p class="lead">chart 2 here</p>
 
-<div class="row">
-    <div class="col">
-        <div class="card shadow-lg">
-            <div class="card-body">
-                <p class="lead">
-                    asd
-                </p>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="card shadow-lg">
+<div class="row mb-lg-3">
+
+    <div class="col-lg-7 mb-4 mb-lg-0">
+        <div class="card h-100 shadow-lg rounded-4 border-0">
             <div class="card-body">
                 <p class="lead">chart 2 here</p>
             </div>
         </div>
     </div>
+
+    <div class="col-lg-5 mb-4 mb-lg-0">
+        <div class="card h-100 shadow-lg text-light rounded-4 border-0" [ngClass]="{ 'bg-secondary': weather?.current?.is_day == undefined, 'bg-info': weather?.current?.is_day == 1, 'bg-primary': weather?.current!.is_day == 0 }" style="transition: all 800ms ease; backdrop-filter: blur(10px)" style="transition: all 800ms ease; backdrop-filter: blur(10px)">
+            <div class="card-body user-select-none">
+                <div class="row text-center">
+                    <div class="col">
+                        <p class="lead"><i id="city">{{ geo?.city }}</i> - <span id="date">{{ now | date: 'dd/MM/yyyy' }}</span></p>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col">
+                        <p class="lead">
+                            <span id="temperature">{{ weather?.current!.temperature_2m }}{{ weather?.current_units!.temperature_2m }}</span>
+                        </p>
+                    </div>
+                    <div class="col">
+                        <p class="lead"><strong><span id="hours-minutes">{{ now | date: 'HH:mm' }}</span></strong></p>
+                    </div>
+                </div>
+                <hr>
+                <div class="mediterraneo-lottie-container" style="height: 350px;">
+                    <ng-lottie
+                        [options]="options">
+                    </ng-lottie>
+                </div>
+            </div>
+            <div #weatherLoading id="weather-loading" class="z-1 position-absolute rounded-4 bg-opacity-50 p-2 bg-transparent w-100 h-100 object-fit-cover align-bottom" style="transition: all 800ms ease; backdrop-filter: blur(10px)">
+                <a href="https://open-meteo.com/" title="Weather data by Open-Meteo.com" target="_blank">
+                    <i class="bi bi-info-circle text-light"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
 </div>

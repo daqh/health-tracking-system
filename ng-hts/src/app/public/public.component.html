@@ -1,1 +1,41 @@
+<nav class="navbar w-100 navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" routerLink="/">IoTracking</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <li class="nav-item">
+                    <a role="button" class="nav-link" routerLink="/">
+                        Home
+                    </a>
+                </li>
+                
+                <li class="nav-item" *ngIf="getActiveAccount()">
+                    <a role="button" class="nav-link" [routerLink]="['/', 'dashboard']">
+                        Dashboard
+                    </a>
+                </li>
+
+                <li class="nav-item" *ngIf="!getActiveAccount()">
+                    <a role="button" class="nav-link" (click)="login()">
+                        Log in
+                    </a>
+                </li>
+
+                <li class="nav-item" *ngIf="getActiveAccount()">
+                    <a role="button" class="nav-link" (click)="logout()">
+                        Log out
+                    </a>
+                </li>
+
+                
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
 <router-outlet></router-outlet>

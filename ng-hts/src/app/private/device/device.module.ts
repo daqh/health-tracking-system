@@ -22,7 +22,6 @@ import { DeviceDeleteComponent } from './device-delete/device-delete.component';
   imports: [
     CommonModule,
     DeviceRoutingModule,
-    HttpClientModule,
     FormsModule,
     DeviceTypeModule,
   ],

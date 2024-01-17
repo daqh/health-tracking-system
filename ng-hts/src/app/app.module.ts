@@ -23,6 +23,14 @@ import {
 } from '@azure/msal-browser';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
+import { LottieModule } from 'ngx-lottie';
+import player from 'lottie-web';
+
+// Note we need a separate function as it's required
+// by the AOT compiler.
+export function playerFactory() {
+  return player;
+}
 
 export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
@@ -48,7 +56,7 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
 export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   return {
     interactionType: InteractionType.Popup,
-    loginFailedRoute: '/login',
+    loginFailedRoute: '/',
     authRequest: {
       scopes: ['user.read'],
     },
@@ -57,7 +65,13 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, MsalModule, SharedModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    MsalModule,
+    SharedModule,
+    LottieModule.forRoot({ player: playerFactory }),
+  ],
   providers: [
     {
       provide: MSAL_INSTANCE,

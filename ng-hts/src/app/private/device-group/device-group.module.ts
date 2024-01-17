@@ -12,7 +12,6 @@ import { HttpClientModule } from '@angular/common/http';
     CommonModule,
     DeviceGroupRoutingModule,
     DeviceModule,
-    HttpClientModule,
   ],
   providers: [DeviceGroupService],
 })

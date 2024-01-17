@@ -14,7 +14,6 @@ import { DeviceTypeListItemComponent } from './device-type-list-item/device-type
     CommonModule,
     DeviceTypeRoutingModule,
     FormsModule,
-    HttpClientModule,
   ],
   providers: [DeviceTypeService],
 })
