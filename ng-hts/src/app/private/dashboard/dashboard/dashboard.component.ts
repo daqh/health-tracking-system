@@ -47,7 +47,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.httpClient.get("https://api.ipify.org?format=json").subscribe((ip_info: any) => {
       const { ip } = ip_info;
-      console.log(ip);
       this.httpClient.get(`http://ip-api.com/json/${ ip }`).subscribe((geo: any) => {
         this.geo = geo;
         this.httpClient.get(`https://api.open-meteo.com/v1/forecast?latitude=${geo.lat}&longitude=${geo.lon}&current=temperature_2m,apparent_temperature,is_day,precipitation,rain,showers,snowfall,weather_code,cloud_cover`).subscribe((weather: any) => {
