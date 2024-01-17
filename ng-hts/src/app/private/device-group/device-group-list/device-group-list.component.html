@@ -21,3 +21,7 @@
     ></app-device-list-item> -->
   </div>
 </div>
+
+<div *ngIf="deviceGroups.length === 0 && !loading" class="alert alert-warning">
+  No devices found.
+</div>
