@@ -48,10 +48,10 @@
               <i class="fs-5 bi-braces-asterisk"></i>
               <span class="ms-1 d-none d-sm-inline">Device Types</span>
             </a>
-            <a (click)="logout()" class="nav-link px-sm-0 px-2 text-white">
+            <button (click)="logout()" class="nav-link px-sm-0 px-2 text-white">
               <i class="fs-5 bi-box-arrow-right"></i>
               <span class="ms-1 d-none d-sm-inline">Logout</span>
-            </a>
+            </button>
           </li>
         </ul>
       </div>
@@ -62,6 +62,7 @@
         <main>
           <h1 class="display-1">Health Tracking System</h1>
           <hr />
+          {{ getActiveAccount()?.name | titlecase }}
           <router-outlet></router-outlet>
         </main>
       </div>

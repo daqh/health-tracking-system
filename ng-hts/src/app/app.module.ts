@@ -22,6 +22,7 @@ import {
   IPublicClientApplication,
 } from '@azure/msal-browser';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { SharedModule } from './shared/shared.module';
 
 export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
@@ -56,7 +57,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, MsalModule],
+  imports: [BrowserModule, AppRoutingModule, MsalModule, SharedModule],
   providers: [
     {
       provide: MSAL_INSTANCE,

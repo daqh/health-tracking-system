@@ -1,17 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import {
-  MSAL_GUARD_CONFIG,
-  MsalBroadcastService,
-  MsalGuardConfiguration,
-  MsalService,
-} from '@azure/msal-angular';
-import {
-  AuthenticationResult,
-  InteractionType,
-  PopupRequest,
-  RedirectRequest,
-} from '@azure/msal-browser';
-import { environment } from 'src/environment/environment';
+import { Component, OnInit } from '@angular/core';
+import { Theme, ThemeService } from './shared/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -19,9 +7,29 @@ import { environment } from 'src/environment/environment';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  constructor() {}
+  constructor(private themeService: ThemeService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
 
-  login() {}
+  getTheme() {
+    return this.themeService.getTheme();
+  }
+
+  swapTheme() {
+    const theme = this.themeService.getTheme();
+    switch (theme) {
+      case Theme.Light:
+        this.themeService.setTheme(Theme.Dark);
+        break;
+      case Theme.Dark:
+        this.themeService.setTheme(Theme.Auto);
+        break;
+      default:
+        this.themeService.setTheme(Theme.Light);
+        break;
+    }
+  }
+
 }

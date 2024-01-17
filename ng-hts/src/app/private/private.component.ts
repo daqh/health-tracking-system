@@ -12,6 +12,7 @@ export class PrivateComponent implements OnInit {
   constructor(
     private msalService: MsalService,
     private router: Router,
+    
   ) {}
 
   ngOnInit(): void {
@@ -23,6 +24,10 @@ export class PrivateComponent implements OnInit {
       console.log(response);
       this.router.navigate(['/login']);
     });
+  }
+
+  getActiveAccount() {
+    return this.msalService.instance.getActiveAccount();
   }
 
 }
