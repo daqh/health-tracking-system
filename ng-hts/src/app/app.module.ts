@@ -25,6 +25,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
+import { ThemeModule } from './theme/theme.module';
 
 // Note we need a separate function as it's required
 // by the AOT compiler.
@@ -70,6 +71,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     AppRoutingModule,
     MsalModule,
     SharedModule,
+    ThemeModule,
     LottieModule.forRoot({ player: playerFactory }),
   ],
   providers: [

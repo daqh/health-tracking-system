@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SharedModule } from './shared.module';
+import { ThemeModule } from './theme.module';
 
 export enum Theme {
   Light = 'light',
@@ -7,9 +7,7 @@ export enum Theme {
   Auto = 'auto'
 }
 
-@Injectable({
-  providedIn: SharedModule
-})
+@Injectable()
 export class ThemeService {
 
   private theme: Theme = Theme.Auto;

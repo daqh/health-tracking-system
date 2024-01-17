@@ -1,0 +1,5 @@
+<button class="btn" (click)="swapTheme()" style="position: fixed; bottom: 20px; right: 20px;">
+    <i *ngIf="getTheme() == 'dark'" class="fs-5 bi bi-circle-fill"></i>
+    <i *ngIf="getTheme() == 'light'" class="fs-5 bi bi-circle-fill"></i>
+    <i *ngIf="getTheme() == 'auto'" class="fs-5 bi bi-circle-half"></i>
+</button>
