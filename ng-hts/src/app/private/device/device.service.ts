@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CreateDevice, Device, ListDevice } from './models/device.model';
+import { CreateDevice, Device, ListDevice, UpdateDevice } from './models/device.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environment/environment';
@@ -13,13 +13,13 @@ export class DeviceService {
   }
 
   public createDevice(device: CreateDevice): Observable<Device> {
-    return this.httpClient.post<CreateDevice>(
+    return this.httpClient.post<Device>(
       `${environment.apiBaseUrl}/device`,
       device
     );
   }
 
-  public updateDevice(device: Device): Observable<Device> {
+  public updateDevice(device: UpdateDevice): Observable<Device> {
     return this.httpClient.put<Device>(
       `${environment.apiBaseUrl}/device/${device.id}`,
       device

@@ -53,10 +53,12 @@ export interface CreateDevice {
   deviceTypeId?: number;
 }
 
+export interface UpdateDevice {
+  id: number;
+  deviceTypeId?: number;
+}
+
 export interface Device {
-  id?: number;
-  name?: string;
-  deviceType?: DeviceType;
-  connectionString?: string | undefined;
-  deviceTypeId?: number | undefined;
+  prismaDevice: ListPrismaDevice,
+  registriesDevice: ListRegistryDevice
 }

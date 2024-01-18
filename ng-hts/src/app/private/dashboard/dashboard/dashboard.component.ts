@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AnimationOptions } from 'ngx-lottie';
+import { environment } from 'src/environment/environment';
 
 @Component({
   selector: 'app-dashboard',
@@ -37,8 +38,7 @@ export class DashboardComponent implements OnInit {
   } | undefined;
 
   public geo = undefined as {
-    lat: number,
-    lon: number,
+    loc: string,
     city: string,
   } | undefined;
 
@@ -47,9 +47,12 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.httpClient.get("https://api.ipify.org?format=json").subscribe((ip_info: any) => {
       const { ip } = ip_info;
-      this.httpClient.get(`http://ip-api.com/json/${ ip }`).subscribe((geo: any) => {
+      this.httpClient.get(`https://ipinfo.io/${ ip }?token=${ environment.ipinfoToken }`).subscribe((geo: any) => {
         this.geo = geo;
-        this.httpClient.get(`https://api.open-meteo.com/v1/forecast?latitude=${geo.lat}&longitude=${geo.lon}&current=temperature_2m,apparent_temperature,is_day,precipitation,rain,showers,snowfall,weather_code,cloud_cover`).subscribe((weather: any) => {
+        const loc = geo.loc.split(',');
+        const lat = loc[0];
+        const lon = loc[1];
+        this.httpClient.get(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,is_day,precipitation,rain,showers,snowfall,weather_code,cloud_cover`).subscribe((weather: any) => {
           console.log(weather);
           this.weather = weather;
           if(this.weather!.current.is_day) {

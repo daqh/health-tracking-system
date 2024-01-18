@@ -5,15 +5,34 @@
 <div class="row mb-lg-3">
 
     <div class="col-lg-7 mb-4 mb-lg-0">
-        <div class="card h-100 shadow-lg rounded-4 border-0">
+        <div class="card h-100 shadow-lg rounded-4 border-1">
             <div class="card-body">
-                <p class="lead">chart 2 here</p>
+                <div>
+                    <h3 class="card-title">Devices</h3>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let i of [0,0,0,0,0,0,0,0]">
+                            <td>Username</td>
+                            <td>asd</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="text-center">
+                    <a class="btn" routerLink="/device">View all</a>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="col-lg-5 mb-4 mb-lg-0">
-        <div class="card h-100 shadow-lg text-light rounded-4 border-0" [ngClass]="{ 'bg-secondary': weather?.current?.is_day == undefined, 'bg-info': weather?.current?.is_day == 1, 'bg-primary': weather?.current!.is_day == 0 }" style="transition: all 800ms ease; backdrop-filter: blur(10px)" style="transition: all 800ms ease; backdrop-filter: blur(10px)">
+        <div class="card h-100 shadow-lg text-light rounded-4 border-0 bg-gradient" [ngClass]="{ 'bg-secondary': weather?.current?.is_day == undefined, 'bg-info': weather?.current?.is_day == 1, 'bg-primary': weather?.current!.is_day == 0 }" style="transition: all 800ms ease" style="transition: all 800ms ease; backdrop-filter: blur(10px)">
             <div class="card-body user-select-none">
                 <div class="row text-center">
                     <div class="col">

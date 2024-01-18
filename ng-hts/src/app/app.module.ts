@@ -26,6 +26,7 @@ import { SharedModule } from './shared/shared.module';
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
 import { ThemeModule } from './theme/theme.module';
+import { environment } from 'src/environment/environment';
 
 // Note we need a separate function as it's required
 // by the AOT compiler.
@@ -37,7 +38,11 @@ export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
     auth: {
       clientId: '9957c3a0-ca9d-4422-86b6-e9c0a851dee8',
-      redirectUri: 'http://localhost:4200',
+      redirectUri: environment.msal.redirectUri,
+    },
+    cache: {
+      cacheLocation: 'localStorage',
+      storeAuthStateInCookie: true,
     },
   });
 }
