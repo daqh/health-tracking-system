@@ -6,7 +6,7 @@ import { LottieModule } from 'ngx-lottie';
 
 @NgModule({
   declarations: [
-    DashboardComponent
+    DashboardComponent,
   ],
   imports: [
     CommonModule,

@@ -2,7 +2,8 @@
     <h2 class="display-2">Dashboard</h2>
 </div>
 
-<div class="row mb-lg-3">
+<!-- Row 1 -->
+<div class="row mb-lg-4">
 
     <div class="col-lg-7 mb-4 mb-lg-0">
         <div class="card h-100 shadow-lg rounded-4 border-1">
@@ -60,6 +61,21 @@
                 <a href="https://open-meteo.com/" title="Weather data by Open-Meteo.com" target="_blank">
                     <i class="bi bi-info-circle text-light"></i>
                 </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Row 2 -->
+<div class="row mb-lg-4">
+
+    <div class="col-lg-12">
+        <div class="card h-100 shadow-lg rounded-4 border-1">
+            <div class="card-body">
+                <div class="chart-container">
+                    <canvas id="MyChart" >{{ chart }}</canvas>
+                </div>
             </div>
         </div>
     </div>
