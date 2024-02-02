@@ -1,8 +1,10 @@
 ![Health Tracking](assets/Health%20Tracking%20-%20Cloud%20Computing%20Course%20Project%20Banner.png)
 
-# Health Traking System
+<h1 style="background-image: linear-gradient(to right, #833ab4, #fd1d1d,#fcb045);-webkit-background-clip: text;-webkit-text-fill-color: transparent">Health Tracking System</h1>
 
 health-tracking-system è un sistema Cloud-based ideato per il tracciamento di dati sanitari da dispositivi IoT, realizzato come progetto Universitario per il corso di *Cloud Computing* del dipartimento di informatica presso l'Università degli Studi di Salerno.
+
+Una caratteristica fondamentale, quando si lavora con dati sanitari, è la governance correlata alle informazioni che vengono raccolte.
 
 ## Come installare il progetto
 
@@ -53,3 +55,12 @@ Dovendo sviluppare un prodotto ospitato mediante i servizi di Micorosft Azure, l
 #### Deploy Node.js-based app using Prsima to Azure Functions
 
 Reference: [Deploy to Azure Functions](https://prisma.io/docs/guides/deployment/serverless/deploy-to-azure-functions)
+
+## Implementazioni future
+
+- Implementare una gestione dei ruoli basata su Azure RBAC. Tali ruoli saranno i seguenti:
+    - *Sottoscritore* - Può solo leggere le misurazioni raccolte dai dispositivi.
+    - *Collaboratore* - Può leggere le misurazioni raccolte dai dispositivi e inserire nuovi dispositivi.
+    - *Amministratore* - Ha accesso completo a tutte le funzionalità del sistema
+
+
