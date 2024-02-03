@@ -1,5 +1,7 @@
 . ./environment.sh
 
+az extension add --name front-door
+
 echo "export const environment = {" > ng-hts/src/environment/environment.prod.ts
 echo -e "\tproduction: true," >> ng-hts/src/environment/environment.prod.ts
 
@@ -21,8 +23,8 @@ az sql server firewall-rule create --resource-group $RESOURCE_GROUP --server $SQ
 if [ "$DEVELOPMENT" = "true" ]; then
     # Create the firewall rule to allow your IP
     echo "Creating the firewall rule to allow your IP"
-    az sql server firewall-rule create --resource-group $RESOURCE_GROUP --server $SQL_SERVER --start-ip-address $GLOBAL_IP --end-ip-address $GLOBAL_IP --name "AllowMyIP"
 fi
+az sql server firewall-rule create --resource-group $RESOURCE_GROUP --server $SQL_SERVER --start-ip-address $GLOBAL_IP --end-ip-address $GLOBAL_IP --name "AllowMyIP"
 
 # Create the database
 echo "Creating the database $SQL_DATABASE"
@@ -49,7 +51,7 @@ echo "SHADOW_DATABASE_URL=\"$SHADOW_DATABASE_URL\"" >> device-function-app/.env
 echo "Creating the IoT Hub $IOT_HUB"
 az iot hub create -n $IOT_HUB --resource-group $RESOURCE_GROUP --sku F1 --partition-count 2 --location westeurope # F1 sku allows free 500 devices and 8000 messages per day
 echo IOT_HUB_CONNECTION_STRING="$( az iot hub connection-string show --hub-name $IOT_HUB --resource-group $RESOURCE_GROUP | jq '.connectionString' )" >> device-function-app/.env
-echo -e '\tiotHubHostName: "$IOT_HUB.azure-devices.net",' >> ng-hts/src/environment/environment.prod.ts
+echo -e "\tiotHubHostName:" "\""$IOT_HUB.azure-devices.net"\"", >> ng-hts/src/environment/environment.prod.ts
 
 # END: Azure IoT Hub
 # =========================
@@ -64,7 +66,8 @@ az resource create --resource-type "Microsoft.Insights/components" --name $APPIN
 
 echo "Creating the function app $FUNCTION_APP"
 az functionapp create --name $FUNCTION_APP --storage-account $STORAGE_ACCOUNT --resource-group $RESOURCE_GROUP --consumption-plan-location westeurope --runtime node --runtime-version 20 --functions-version 4 --os-type Linux --app-insights $APPINSIGHTS_NAME
-echo -e '\tapiBaseUrl: "https://$FUNCTION_APP.azurewebsites.net/api",' >> ng-hts/src/environment/environment.prod.ts
+echo -e "\tapiBaseUrl:" "\""https://$FUNCTION_APP.azurewebsites.net/api"\"", >> ng-hts/src/environment/environment.prod.ts
+az functionapp cors add  --name $FUNCTION_APP --allowed-origins "*" --resource-group $RESOURCE_GROUP
 
 # END: Azure Functions
 # =========================
@@ -72,7 +75,44 @@ echo -e '\tapiBaseUrl: "https://$FUNCTION_APP.azurewebsites.net/api",' >> ng-hts
 # =========================
 # BEGIN: Azure Stream Analytics Job
 
-# az stream-analytics job create --name $STREAM_ANALYTICS_JOB --resource-group $RESOURCE_GROUP --transformation name="transformationSAJ" streaming-units=1
+az stream-analytics job create --name $STREAM_ANALYTICS_JOB --resource-group $RESOURCE_GROUP --transformation name="transformationSAJ" streaming-units=1 query="$STREAM_ANALYTICS_JOB_QUERY"
+
+SAJ_INPUT_PROPERTIES="\
+{ 
+    \"type\": \"Stream\", 
+    \"datasource\": { 
+        \"type\": \"Microsoft.Devices/IotHubs\", 
+        \"properties\": {
+            \"endpoint\": \"messages/events\",
+            \"iotHubNamespace\": \"$IOT_HUB\", 
+            \"sharedAccessPolicyName\": \"service\", 
+            \"sharedAccessPolicyKey\": \"$( az iot hub policy show --hub-name $IOT_HUB --name service | jq -r '.primaryKey' )\", 
+            \"consumerGroupName\": \"\$Default\"
+        }
+    },
+    \"serialization\": { 
+        \"type\": \"Json\", 
+        \"properties\": { 
+            \"encoding\": \"UTF8\"
+        }
+    }
+}"
+
+az stream-analytics input create --name $IOT_HUB --job-name $STREAM_ANALYTICS_JOB --resource-group $RESOURCE_GROUP --properties "$SAJ_INPUT_PROPERTIES"
+
+SAJ_OUTPUT_DATASOURCE="\
+{ 
+    \"type\": \"Microsoft.Sql/Server/Database\", 
+    \"properties\": { 
+        \"server\": \"$SQL_SERVER\", 
+        \"database\": \"$SQL_DATABASE\", 
+        \"user\": \"$SQL_SERVER_ADMIN\", 
+        \"password\": \"$SQL_SERVER_PASSWORD\", 
+        \"table\": \"Measure\" 
+    }
+}"
+
+az stream-analytics output create --name $SQL_DATABASE --job-name $STREAM_ANALYTICS_JOB --resource-group $RESOURCE_GROUP --datasource "$SAJ_OUTPUT_DATASOURCE"
 
 # END: Azure Stream Analytics Job
 # =========================
@@ -81,7 +121,17 @@ echo -e '\tapiBaseUrl: "https://$FUNCTION_APP.azurewebsites.net/api",' >> ng-hts
 # BEGIN: Azure Static Web App
 
 az staticwebapp create --name $STATIC_WEB_APP --resource-group $RESOURCE_GROUP
+echo -e "\tmsal: {" >> ng-hts/src/environment/environment.prod.ts
+echo -e "\t\tredirectUri:" "\"https://"$(az staticwebapp list | jq -r '.[0].defaultHostname')"\"", >> ng-hts/src/environment/environment.prod.ts
+echo -e "\t}," >> ng-hts/src/environment/environment.prod.ts
 echo "Creating the static web app $STATIC_WEB_APP to the environment $STATIC_WEB_APP_ENV"
+
+echo -e "\tipinfoToken:" "\""$IPINFO_TOKEN"\"", >> ng-hts/src/environment/environment.prod.ts
+echo } >> ng-hts/src/environment/environment.prod.ts
+cd ng-hts
+npm install
+ng build --configuration production
+cd ..
 swa deploy --resource-group my-project-resource-group --app-name my-project-static-web-app --env $STATIC_WEB_APP_ENV
 
 # =========================
@@ -94,8 +144,9 @@ npx prisma generate # Generate the Prisma client
 npx prisma db push
 func azure functionapp publish $FUNCTION_APP # Deploy the function app
 cd ..
+az sql server firewall-rule delete --resource-group $RESOURCE_GROUP --server $SQL_SERVER --name "AllowMyIP" # Delete the firewall rule to allow your IP
 
 # End: Deploy the function app
 # =========================
 
-echo } >> ng-hts/src/environment/environment.prod.ts
+az stream-analytics job start --name $STREAM_ANALYTICS_JOB --resource-group $RESOURCE_GROUP
