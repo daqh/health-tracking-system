@@ -8,6 +8,7 @@ LOCATION="italynorth"
 RESOURCE_GROUP_SUFFIX="resource-group"
 GLOBAL_IP="$( wget -qO- https://ipecho.net/plain )"
 DEVELOPMENT="false" # Set to "true" if you want to create the shadow database
+IPINFO_TOKEN="da60eeb3c2c5e5"
 
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -16,8 +17,8 @@ SQL_SERVR_SUFFIX="sql-server"
 SQL_DATABASE_SUFFIX="database"
 SQL_SHADOW_DATABASE_SUFFIX="shadow"
 # ++++ CHANGE THESE VALUES ++++
-SQL_SERVER_ADMIN="SQL_ADMIN"
-SQL_SERVER_PASSWORD="SQL_PASSWORD"
+SQL_SERVER_ADMIN="sqladmin"
+SQL_SERVER_PASSWORD="P@ssw0rd1234"
 # END: SQL Server variables
 # ..........................
 # BEGIN: IoT Hub variables
@@ -31,6 +32,9 @@ APPINSIGHTS_SUFFIX="app-insights"
 # END: Functions variables
 # Begin: Stream Analytics Job variables
 STREAM_ANALYTICS_JOB_SUFFIX="stream-analytics-job"
+STREAM_ANALYTICS_JOB_QUERY="\
+SELECT weight, steps, distance, unit, datetime, IotHub.ConnectionDeviceId as deviceId INTO [my-project-database] FROM [my-project-iot-hub];"
+
 # END: Stream Analytics Job variables
 STATIC_WEB_APP_SUFFIX="static-web-app"
 
