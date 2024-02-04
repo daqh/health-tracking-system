@@ -9,31 +9,22 @@ datasource db {
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-model DeviceType {
-  id      Int      @id @default(autoincrement())
-  name    String
-  devices Device[]
-}
-
 model Device {
   id            Int          @id @default(autoincrement())
   deviceTypeId  Int
-  deviceType    DeviceType   @relation(fields: [deviceTypeId], references: [id])
-  deviceGroup   DeviceGroup? @relation(fields: [deviceGroupId], references: [id])
   deviceGroupId Int?
-  Measure       Measure[]
-}
-
-model DeviceGroup {
-  id      Int      @id @default(autoincrement())
-  name    String
-  devices Device[]
+  oid           String
+  measures       Measure[]
 }
 
 model Measure {
-  id        Int    @id @default(autoincrement())
-  // TODO: verify the measuement attribute
-  deviceId  Int
-  device    Device @relation(fields: [deviceId], references: [id])
-  timestamp DateTime @default(now())
+  id          Int    @id @default(autoincrement())
+  deviceId    Int
+  device      Device @relation(fields: [deviceId], references: [id])
+  datetime    DateTime @default(now())
+  // Actual values of the measure
+  weight      Float?
+  steps       Int?
+  distance    Int? // distance in meters
+  unit        String
 }
