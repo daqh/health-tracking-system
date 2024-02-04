@@ -144,7 +144,10 @@ npx prisma generate # Generate the Prisma client
 npx prisma db push
 func azure functionapp publish $FUNCTION_APP # Deploy the function app
 cd ..
-az sql server firewall-rule delete --resource-group $RESOURCE_GROUP --server $SQL_SERVER --name "AllowMyIP" # Delete the firewall rule to allow your IP
+
+if [ "$DEVELOPMENT" = "false" ]; then
+    az sql server firewall-rule delete --resource-group $RESOURCE_GROUP --server $SQL_SERVER --name "AllowMyIP" # Delete the firewall rule to allow your IP
+fi
 
 # End: Deploy the function app
 # =========================

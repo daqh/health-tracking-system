@@ -7,7 +7,7 @@ SAFE_PROJECT_NAME="htsproject"
 LOCATION="italynorth"
 RESOURCE_GROUP_SUFFIX="resource-group"
 GLOBAL_IP="$( wget -qO- https://ipecho.net/plain )"
-DEVELOPMENT="false" # Set to "true" if you want to create the shadow database
+DEVELOPMENT="true" # Set to "true" if you want to create the shadow database
 IPINFO_TOKEN="da60eeb3c2c5e5"
 
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
