@@ -7,6 +7,7 @@ import {
 import { Device } from "../models/Device";
 
 import { PrismaClient } from "@prisma/client";
+import { decode } from "jsonwebtoken";
 
 import registry from "../utils/iothub";
 
@@ -16,16 +17,17 @@ export async function createDevice(
   request: HttpRequest,
   context: InvocationContext
 ): Promise<HttpResponseInit> {
+  const authorization = request.headers.get('authorization');
+  const token = authorization.split(' ')[1];
+  const payload = decode(token);
+  const oid = payload['oid'];
   try {
     const json: any = await request.json();
 
     const deviceTypeId = Number(json.deviceTypeId);
 
     const prismaDevice = await prisma.device.create({
-      data: new Device(deviceTypeId),
-      include: {
-        deviceType: true,
-      },
+      data: new Device(deviceTypeId, oid),
     });
 
     const registryDevice = (
@@ -33,6 +35,13 @@ export async function createDevice(
         deviceId: prismaDevice.id.toString(),
       })
     ).responseBody;
+
+    await registry.updateTwin(prismaDevice.id.toString(), {
+      tags: {
+        deviceTypeId: deviceTypeId.toString(),
+        oid: oid,
+      },
+    }, "*");
 
     return {
       jsonBody: {
