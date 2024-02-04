@@ -1,10 +1,9 @@
 
 export class Device {
 
-    public readonly deviceTypeId: number;
-    
-    constructor(deviceTypeId: number) {
-        this.deviceTypeId = deviceTypeId;
-    }
+    constructor(
+        public readonly deviceTypeId: number,
+        public readonly oid: string
+    ) {}
 
 }

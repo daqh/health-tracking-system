@@ -2,9 +2,9 @@
  * Represents a device type.
  */
 export class DeviceType {
-    public readonly name: string;
     
-    constructor(name: string) {
-        this.name = name;
-    }
+    constructor(
+        public readonly name: string,
+        public readonly oid: string
+    ) {}
 }
