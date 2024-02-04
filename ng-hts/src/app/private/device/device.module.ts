@@ -8,8 +8,8 @@ import { DeviceService } from './device.service';
 import { HttpClientModule } from '@angular/common/http';
 import { DeviceListItemComponent } from './device-list-item/device-list-item.component';
 import { FormsModule } from '@angular/forms';
-import { DeviceTypeModule } from '../device-type/device-type.module';
 import { DeviceDeleteComponent } from './device-delete/device-delete.component';
+import { MeasureModule } from '../measure/measure.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,7 @@ import { DeviceDeleteComponent } from './device-delete/device-delete.component';
     CommonModule,
     DeviceRoutingModule,
     FormsModule,
-    DeviceTypeModule,
+    MeasureModule,
   ],
   providers: [DeviceService],
   exports: [DeviceListItemComponent],

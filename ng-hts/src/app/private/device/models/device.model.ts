@@ -1,4 +1,4 @@
-import { DeviceType } from "src/app/private/device-type/models/device-type.model";
+import { Measure } from "../../measure/models/measure.model";
 
 export interface ListPrismaDeviceDeviceType {
   id: number;
@@ -61,4 +61,13 @@ export interface UpdateDevice {
 export interface Device {
   prismaDevice: ListPrismaDevice,
   registriesDevice: ListRegistryDevice
+}
+
+export interface PrismaDeviceDetial extends ListPrismaDevice {
+  measures: Measure[];
+}
+
+export interface DeviceDetail {
+  prismaDevice: PrismaDeviceDetial;
+  registryDevice: ListRegistryDevice;
 }

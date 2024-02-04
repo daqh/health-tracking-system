@@ -38,7 +38,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
     auth: {
       clientId: '9957c3a0-ca9d-4422-86b6-e9c0a851dee8',
-      redirectUri: environment.msal.redirectUri,
+      authority: 'https://login.microsoftonline.com/common/v2.0',
+      redirectUri: environment.msal.redirectUri
     },
     cache: {
       cacheLocation: 'localStorage',
@@ -50,6 +51,9 @@ export function MSALInstanceFactory(): IPublicClientApplication {
 export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   const protectedResourceMap = new Map<string, Array<string>>();
   protectedResourceMap.set('https://graph.microsoft.com/v1.0/me', [
+    'user.read',
+  ]);
+  protectedResourceMap.set('https://my-project-function-app.azurewebsites.net', [
     'user.read',
   ]);
 

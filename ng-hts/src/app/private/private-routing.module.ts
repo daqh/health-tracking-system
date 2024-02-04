@@ -22,20 +22,6 @@ const routes: Routes = [
         loadChildren: () =>
           import('./device/device.module').then((m) => m.DeviceModule),
       },
-      {
-        path: 'device-type',
-        loadChildren: () =>
-          import('./device-type/device-type.module').then(
-            (m) => m.DeviceTypeModule
-          ),
-      },
-      {
-        path: 'device-group',
-        loadChildren: () =>
-          import('./device-group/device-group.module').then(
-            (m) => m.DeviceGroupModule
-          ),
-      },
     ],
   },
 ];
