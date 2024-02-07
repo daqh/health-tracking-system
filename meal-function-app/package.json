@@ -9,7 +9,7 @@
     "prestart": "npm run clean && npm run build",
     "start": "func start",
     "test": "npx jest",
-    "local": "func host start --verbose -p 7071 --cors http://localhost:4200"
+    "local": "func host start --verbose -p 7070 --cors http://localhost:4200"
   },
   "dependencies": {
     "@azure/functions": "^4.0.0",
