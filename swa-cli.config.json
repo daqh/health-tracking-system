@@ -4,7 +4,7 @@
     "health-tracking-system": {
       "appLocation": "ng-hts",
       "outputLocation": "ng-hts/dist/ng-hts",
-      "apiBuildCommand": "npm install && npm run build -- --prod",
+      "apiBuildCommand": "npm install && npm run build -c production",
       "run": "npm start",
       "appDevserverUrl": "http://localhost:4200",
       "appName": "my-project-static-web-app",
