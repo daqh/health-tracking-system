@@ -53,6 +53,8 @@ az iot hub create -n $IOT_HUB --resource-group $RESOURCE_GROUP --sku F1 --partit
 echo IOT_HUB_CONNECTION_STRING="$( az iot hub connection-string show --hub-name $IOT_HUB --resource-group $RESOURCE_GROUP | jq '.connectionString' )" >> device-function-app/.env
 echo -e "\tiotHubHostName:" "\""$IOT_HUB.azure-devices.net"\"", >> ng-hts/src/environment/environment.prod.ts
 
+cat device-function-app/.env >> meal-function-app/.env # Copy the .env file to the meal-function-app
+
 # END: Azure IoT Hub
 # =========================
 # .........................
@@ -64,10 +66,15 @@ az storage account create --name $STORAGE_ACCOUNT --resource-group $RESOURCE_GRO
 
 az resource create --resource-type "Microsoft.Insights/components" --name $APPINSIGHTS_NAME --resource-group $RESOURCE_GROUP --location westeurope --properties '{"Application_Type":"web"}'
 
-echo "Creating the function app $FUNCTION_APP"
-az functionapp create --name $FUNCTION_APP --storage-account $STORAGE_ACCOUNT --resource-group $RESOURCE_GROUP --consumption-plan-location westeurope --runtime node --runtime-version 20 --functions-version 4 --os-type Linux --app-insights $APPINSIGHTS_NAME
-echo -e "\tapiBaseUrl:" "\""https://$FUNCTION_APP.azurewebsites.net/api"\"", >> ng-hts/src/environment/environment.prod.ts
-az functionapp cors add  --name $FUNCTION_APP --allowed-origins "*" --resource-group $RESOURCE_GROUP
+echo "Creating the device function app $DEVICE_FUNCTION_APP"
+az functionapp create --name $DEVICE_FUNCTION_APP --storage-account $STORAGE_ACCOUNT --resource-group $RESOURCE_GROUP --consumption-plan-location westeurope --runtime node --runtime-version 20 --functions-version 4 --os-type Linux --app-insights $APPINSIGHTS_NAME
+echo -e "\tdeviceApiBaseUrl:" "\""https://$DEVICE_FUNCTION_APP.azurewebsites.net/api"\"", >> ng-hts/src/environment/environment.prod.ts
+az functionapp cors add  --name $DEVICE_FUNCTION_APP --allowed-origins "*" --resource-group $RESOURCE_GROUP
+
+echo "Creating the device function app $MEAL_FUNCTION_APP"
+az functionapp create --name $MEAL_FUNCTION_APP --storage-account $STORAGE_ACCOUNT --resource-group $RESOURCE_GROUP --consumption-plan-location westeurope --runtime node --runtime-version 20 --functions-version 4 --os-type Linux --app-insights $APPINSIGHTS_NAME
+echo -e "\tmealApiBaseUrl:" "\""https://$MEAL_FUNCTION_APP.azurewebsites.net/api"\"", >> ng-hts/src/environment/environment.prod.ts
+az functionapp cors add  --name $MEAL_FUNCTION_APP --allowed-origins "*" --resource-group $RESOURCE_GROUP
 
 # END: Azure Functions
 # =========================
@@ -142,7 +149,12 @@ swa deploy --resource-group my-project-resource-group --app-name my-project-stat
 cd device-function-app
 npx prisma generate # Generate the Prisma client
 npx prisma db push
-func azure functionapp publish $FUNCTION_APP # Deploy the function app
+func azure functionapp publish $DEVICE_FUNCTION_APP # Deploy the function app
+cd ..
+
+cd meal-function-app
+npx prisma generate # Generate the Prisma client
+func azure functionapp publish $MEAL_FUNCTION_APP # Deploy the function app
 cd ..
 
 if [ "$DEVELOPMENT" = "false" ]; then
