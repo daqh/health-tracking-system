@@ -17,7 +17,7 @@ export async function deleteDevice(
   const authorization = request.headers.get('authorization');
   const token = authorization.split(' ')[1];
   const payload = decode(token);
-  const oid = payload['oid'];
+  const sub = payload['sub'] as string;
   try {
     const deviceId = Number(request.params.deviceId);
 
@@ -25,7 +25,7 @@ export async function deleteDevice(
       where: {
         id: deviceId,
         AND: {
-          oid: oid,
+          sub: sub,
         },
       },
     });

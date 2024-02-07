@@ -17,11 +17,11 @@ export async function findDevices(
   const authorization = request.headers.get('authorization');
   const token = authorization.split(' ')[1];
   const payload = decode(token);
-  const oid = payload['oid'];
+  const sub = payload['sub'] as string;
 
   const prismaDevices = await prisma.device.findMany({
     where: {
-      oid: oid,
+      sub: sub,
     },
   });
 

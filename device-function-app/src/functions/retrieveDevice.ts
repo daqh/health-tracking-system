@@ -7,6 +7,7 @@ import {
 import registry from "../utils/iothub";
 import { PrismaClient } from "@prisma/client";
 import { decode } from "jsonwebtoken";
+import moment = require("moment");
 
 const prisma = new PrismaClient();
 
@@ -17,16 +18,49 @@ export async function retrieveDevice(
   const authorization = request.headers.get("authorization");
   const token = authorization.split(" ")[1];
   const payload = decode(token);
-  const oid = payload["oid"];
+  const sub = payload["sub"] as string;
 
-  const prismaDevice = await prisma.device.findUnique({
-    where: {
-      id: parseInt(request.params.id),
-    },
-    include: {
-      measures: true,
-    },
-  });
+  let begin: any = request.query.get("begin");
+  begin = moment(begin, "YYYY-MM-DD");
+
+  if (!begin.isValid()) {
+    var prismaDevice = await prisma.device.findUnique({
+      where: {
+        id: parseInt(request.params.id),
+        AND: {
+          sub: sub,
+        },
+      },
+      include: {
+        measures: {
+          orderBy: {
+            datetime: "asc",
+          },
+        },
+      },
+    });
+  } else {
+    var prismaDevice = await prisma.device.findUnique({
+      where: {
+        id: parseInt(request.params.id),
+        AND: {
+          sub: sub,
+        },
+      },
+      include: {
+        measures: {
+          orderBy: {
+            datetime: "asc",
+          },
+          where: {
+            datetime: {
+              gte: begin.toDate(),
+            },
+          },
+        },
+      },
+    });
+  }
 
   const registryDevice = (await registry.get(request.params.id)).responseBody;
 

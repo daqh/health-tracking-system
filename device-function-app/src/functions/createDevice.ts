@@ -20,14 +20,14 @@ export async function createDevice(
   const authorization = request.headers.get('authorization');
   const token = authorization.split(' ')[1];
   const payload = decode(token);
-  const oid = payload['oid'];
+  const sub: string = payload['sub'] as string;
   try {
     const json: any = await request.json();
 
     const deviceTypeId = Number(json.deviceTypeId);
 
     const prismaDevice = await prisma.device.create({
-      data: new Device(deviceTypeId, oid),
+      data: new Device(sub),
     });
 
     const registryDevice = (
@@ -39,7 +39,7 @@ export async function createDevice(
     await registry.updateTwin(prismaDevice.id.toString(), {
       tags: {
         deviceTypeId: deviceTypeId.toString(),
-        oid: oid,
+        sub: sub,
       },
     }, "*");
 
