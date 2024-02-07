@@ -12,6 +12,6 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     CommonModule,
     PrivateRoutingModule
-  ]
+  ],
 })
 export class PrivateModule { }

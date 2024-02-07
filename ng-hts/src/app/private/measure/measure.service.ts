@@ -8,6 +8,6 @@ export class MeasureService {
   constructor(private httpClient: HttpClient) {}
 
   listMeasures() {
-    return this.httpClient.get<Measure>(`${environment.apiBaseUrl}/measure`);
+    return this.httpClient.get<Measure>(`${environment.deviceApiBaseUrl}/measure`);
   }
 }

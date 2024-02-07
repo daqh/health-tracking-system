@@ -1,0 +1,24 @@
+<button class="btn" routerLink="/meal/create">+ Add Meal</button>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Kcal</th>
+        <th scope="col">Protein</th>
+        <th scope="col">Fat</th>
+        <th scope="col">When</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let meal of meals">
+        <th scope="row">{{ meal.id }}</th>
+        <td>{{ meal.name }}</td>
+        <td>{{ meal.kcal }}</td>
+        <td>{{ meal.protein }}</td>
+        <td>{{ meal.fat }}</td>
+        <td>{{ meal.createdAt | date }}</td>
+      </tr>
+    </tbody>
+  </table>

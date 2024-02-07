@@ -4,11 +4,19 @@
     </div>
 </div>
 
+<div class="text-center">
+    <span *ngIf="todaySteps > 0" class="h2"><b>{{ todaySteps }}</b> passi misurati l'ultimo giorno!</span>
+</div>
+
+<div class="text-center">
+    <span *ngIf="lastWeight > 0" class="h2"><b>{{ lastWeight }}</b> kg l'ultimo giorno.</span>
+</div>
+
 <div class="alert alert-warning" *ngIf="!isPedometer && !isScale">
     No measures found.
-  </div>
+</div>
 
-<div class="card h-100 shadow-lg rounded-4 border-0 bg-gradient" *ngIf="isPedometer">
+<div class="card h-100 shadow-lg rounded-4 border-0 bg-gradient mt-3" *ngIf="isPedometer">
     <div class="card-body">
         <h3 class="card-title">Pedometer</h3>
         <div class="chart-container">

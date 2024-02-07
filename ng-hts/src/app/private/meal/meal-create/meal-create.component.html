@@ -1,0 +1,34 @@
+<div class="mb-3">
+    <h2 class="display-2">Add a Meal</h2>
+  </div>
+  <form (ngSubmit)="onSubmit($event)" #mealForm="ngForm">
+    <!-- Name: string -->
+    <div class="mb-3">
+      <label for="deviceTypeId" class="form-label">Name</label>
+      <input type="text" class="form-control" id="name" name="name" required [(ngModel)]="meal.name" #name="ngModel" placeholder="Name of the meal you had">
+    </div>
+    <!-- kcal: number -->
+    <div class="mb-3">
+      <label for="kcal" class="form-label">Kcal</label>
+      <input type="number" class="form-control" id="kcal" name="kcal" required [(ngModel)]="meal.kcal" #kcal="ngModel" placeholder="Kcal of the meal">
+    </div>
+    <!-- protein: number -->
+    <div class="mb-3">
+      <label for="protein" class="form-label">Protein</label>
+      <input type="number" class="form-control" id="protein" name="protein" [(ngModel)]="meal.protein" #protein="ngModel" placeholder="Protein of the meal">
+    </div>
+    <!-- fat: number -->
+    <div class="mb-3">
+      <label for="fat" class="form-label">Fat</label>
+      <input type="number" class="form-control" id="fat" name="fat" [(ngModel)]="meal.fat" #fat="ngModel" placeholder="Fat of the meal">
+    </div>
+    <!-- carbohydrates: number -->
+    <div class="mb-3">
+      <label for="carbohydrates" class="form-label">Carbohydrates</label>
+      <input type="number" class="form-control" id="carbohydrates" name="carbohydrates" [(ngModel)]="meal.carbohydrates" #carbohydrates="ngModel" placeholder="Carbohydrates of the meal">
+    </div>
+    <button type="submit" [disabled]="!mealForm.valid" class="btn btn-primary">
+      Submit
+    </button>
+  </form>
+  

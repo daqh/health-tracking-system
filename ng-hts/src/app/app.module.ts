@@ -38,8 +38,10 @@ export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
     auth: {
       clientId: '9957c3a0-ca9d-4422-86b6-e9c0a851dee8',
-      authority: 'https://login.microsoftonline.com/common/v2.0',
-      redirectUri: environment.msal.redirectUri
+      authority: 'https://healthtrackingsystem.b2clogin.com/healthtrackingsystem.onmicrosoft.com/b2c_1_susi_hts',
+      redirectUri: environment.msal.redirectUri,
+      knownAuthorities: ['healthtrackingsystem.b2clogin.com'],
+      postLogoutRedirectUri: '/'
     },
     cache: {
       cacheLocation: 'localStorage',
@@ -51,24 +53,27 @@ export function MSALInstanceFactory(): IPublicClientApplication {
 export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   const protectedResourceMap = new Map<string, Array<string>>();
   protectedResourceMap.set('https://graph.microsoft.com/v1.0/me', [
-    'user.read',
+    'https://healthtrackingsystem.onmicrosoft.com/9957c3a0-ca9d-4422-86b6-e9c0a851dee8/Measure.Read',
   ]);
-  protectedResourceMap.set('https://my-project-function-app.azurewebsites.net', [
-    'user.read',
+  protectedResourceMap.set(environment.deviceApiBaseUrl, [
+    'https://healthtrackingsystem.onmicrosoft.com/9957c3a0-ca9d-4422-86b6-e9c0a851dee8/Measure.Read',
+  ]);
+  protectedResourceMap.set(environment.mealApiBaseUrl, [
+    'https://healthtrackingsystem.onmicrosoft.com/9957c3a0-ca9d-4422-86b6-e9c0a851dee8/Measure.Read',
   ]);
 
   return {
-    interactionType: InteractionType.Redirect,
+    interactionType: InteractionType.Popup,
     protectedResourceMap,
   };
 }
 
 export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   return {
-    interactionType: InteractionType.Popup,
+    interactionType: InteractionType.Redirect,
     loginFailedRoute: '/',
     authRequest: {
-      scopes: ['user.read'],
+      scopes: ['https://healthtrackingsystem.onmicrosoft.com/9957c3a0-ca9d-4422-86b6-e9c0a851dee8/Measure.Read'],
     },
   };
 }

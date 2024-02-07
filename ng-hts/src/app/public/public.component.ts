@@ -5,14 +5,10 @@ import { MsalService } from '@azure/msal-angular';
 @Component({
   selector: 'app-public',
   templateUrl: './public.component.html',
-  styleUrls: ['./public.component.css']
+  styleUrls: ['./public.component.css'],
 })
 export class PublicComponent implements OnInit {
-
-  constructor(
-    private msalService: MsalService,
-    private router: Router
-  ) { }
+  constructor(private msalService: MsalService, private router: Router) {}
 
   getActiveAccount() {
     const activeAccount = this.msalService.instance.getActiveAccount();
@@ -20,7 +16,6 @@ export class PublicComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.msalService.initialize();
   }
 
   login() {
@@ -36,5 +31,4 @@ export class PublicComponent implements OnInit {
       this.router.navigate(['/']);
     });
   }
-
 }

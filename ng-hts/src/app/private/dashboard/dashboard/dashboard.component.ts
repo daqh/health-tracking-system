@@ -93,7 +93,6 @@ export class DashboardComponent implements OnInit {
                 `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,apparent_temperature,is_day,precipitation,rain,showers,snowfall,weather_code,cloud_cover`
               )
               .subscribe((weather: any) => {
-                console.log(weather);
                 this.weather = weather;
                 if (this.weather!.current.is_day) {
                   this.options = {

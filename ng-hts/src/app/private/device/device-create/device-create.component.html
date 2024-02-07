@@ -2,9 +2,6 @@
   <h2 class="display-2">Create Device</h2>
 </div>
 <form (ngSubmit)="onSubmit()" #deviceForm="ngForm">
-  <div class="mb-3">
-    <label for="deviceTypeId" class="form-label">Device Type</label>
-  </div>
   <button type="submit" [disabled]="!deviceForm.valid" class="btn btn-primary">
     Submit
   </button>

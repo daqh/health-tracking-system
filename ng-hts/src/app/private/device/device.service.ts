@@ -16,33 +16,31 @@ export class DeviceService {
 
   public listDevices(): Observable<ListDevice[]> {
     return this.httpClient.get<ListDevice[]>(
-      `${environment.apiBaseUrl}/device`
+      `${environment.deviceApiBaseUrl}/device`
     );
   }
 
   public createDevice(device: CreateDevice): Observable<Device> {
     return this.httpClient.post<Device>(
-      `${environment.apiBaseUrl}/device`,
-      device
-    );
-  }
-
-  public updateDevice(device: UpdateDevice): Observable<Device> {
-    return this.httpClient.put<Device>(
-      `${environment.apiBaseUrl}/device/${device.id}`,
+      `${environment.deviceApiBaseUrl}/device`,
       device
     );
   }
 
   public deleteDevice(deviceId: number | string): Observable<Device> {
     return this.httpClient.delete<Device>(
-      `${environment.apiBaseUrl}/device/${deviceId}`
+      `${environment.deviceApiBaseUrl}/device/${deviceId}`
     );
   }
 
-  public getDevice(id: string): Observable<DeviceDetail> {
+  public getDevice(id: string, begin: string): Observable<DeviceDetail> {
     return this.httpClient.get<DeviceDetail>(
-      `${environment.apiBaseUrl}/device/${id}`
+      `${environment.deviceApiBaseUrl}/device/${id}`,
+      {
+        params: {
+          begin: begin,
+        },
+      }
     );
   }
 }

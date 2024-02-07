@@ -22,6 +22,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./device/device.module').then((m) => m.DeviceModule),
       },
+      {
+        path: 'meal',
+        loadChildren: () =>
+          import('./meal/meal.module').then((m) => m.MealModule),
+      }
     ],
   },
 ];
