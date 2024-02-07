@@ -34,17 +34,31 @@ Di seguito è riportata l'architettura generale del sistema, progettato indipend
 
 #### App Service vs Static Web App
 
-Nonostante il titolo della sezione, tra le diverse componenti che strutturano questa architettura, il frontend sicuramente si distingue per l'assenza di *Trade Off* nella scelta del servizio, infatti, nonostante la nostra applicazione non abbia la necessità di gestire un frontend molto complesso, l'utilizzo di un framework è desiderabile al fine di scrivere interfacce complesse evitando la ridondanza del codice. In generale, per la maggior parte delle applicazioni, questo può essere guidato principalmente da motivazioni estetiche, sulla base di varie ed eventuali componenti più o meno accattivanti che sono integrati in maniera predefinita nei framework frontend o sviluppati da autori di terze parti.
+Nonostante il titolo della sezione, tra le diverse componenti che strutturano questa architettura, il frontend sicuramente si distingue per l'assenza di *Trade Off* nella scelta del servizio, infatti, nonostante la nostra applicazione non abbia la necessità di gestire un frontend molto complesso, l'utilizzo di un framework è desiderabile al fine di scrivere interfacce complesse evitando la ridondanza del codice. In generale, per la maggior parte delle applicazioni, questo può essere guidato principalmente da motivazioni estetiche, sulla base di varie ed eventuali componenti più o meno accattivanti che sono integrate in maniera predefinita nei framework frontend o sviluppati da autori di terze parti.
 
-Nel caso specifico di questo progetto, le caratteristiche che hanno guidato la scelta di questo framework sono: essere *lightweight* ed esente da elementi che potrebbero appesantire il caricamento delle interfacce; integrabile facilmente con la libreria Bootstrap nella versione 5.3 (che al momento della scrittura rappresenta l'ultima versione in distribuzione); la possibilità di implementare e visualizzare facilmente grafici che visualizzino l'andamento dei valori descritti dai dispositivi IoT.
+Nel caso specifico di questo progetto, le caratteristiche che hanno guidato la scelta di questo framework sono: essere *lightweight* ed esente da elementi che potrebbero appesantire il caricamento delle interfacce; integrabile facilmente con la libreria Bootstrap nella versione 5.3 (che al momento della scrittura risulta essere l'ultima versione); la possibilità di implementare e visualizzare facilmente grafici che rappresentano l'andamento dei valori descritti dai dispositivi IoT.
+
+Lo strumento individuato per lo sviluppo dell'applicazione utente è **[Angular 16](https://en.wikipedia.org/wiki/Single-page_application#:~:text=A%20single%2Dpage%20application%20\(SPA,browser%20loading%20entire%20new%20pages.)**, un framework per lo sviluppo frontend che permette di costruire facilmente *Single Page Application*
 
 ### APIs
 
-<lista degli endpoint da esporre>
+La scelta per la realizzazione delle API per interagire con i dati è direttamente ricaduta sulle *Azure Function App*.
 
-#### Azure Functions vs App Service
+L'intero progetto si fonda a partire da due diverse *Azure Function App*, le quali sono state separate poiché indipendenti. Per tutti i dati non è stata prevista l'opzione di modifica, in quanto non necessaria dal punto di vista funzionale.
 
-Aa
+#### Device Function App
+
+- Crea Dispositivo `POST /device`
+- Elimina Dispositivo `DELETE /device/{deviceId}`
+- Lista di Dispositivi `GET /device`
+- Lettura di un singolo dispositivo `GET /device/{deviceId}`
+
+#### Meal Function App
+
+- Crea Pasto `POST /meal`
+- Elimina Pasto `DELETE /meal/{mealId}`
+- Lista di Pasto `GET /meal`
+- Lettura di un singolo Pasto `GET /meal/{mealId}`
 
 ### Database
 
@@ -63,4 +77,6 @@ Reference: [Deploy to Azure Functions](https://prisma.io/docs/guides/deployment/
     - *Collaboratore* - Può leggere le misurazioni raccolte dai dispositivi e inserire nuovi dispositivi.
     - *Amministratore* - Ha accesso completo a tutte le funzionalità del sistema
 
+# Come disinstallare il progetto
 
+Per cancellare tutte le risorse del progetto, è sufficiente eliminare il gruppo di risorse correlato. Per facilitare tale operazione, è stato predisposto il file `./uninstall.sh`, il quale rappresenta una scorciatoria a tale processo.
