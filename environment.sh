@@ -2,13 +2,16 @@
 echo "Setting up the environment variables"
 
 # Define the variables
-PROJECT_NAME="my-project"
+PROJECT_NAME="my-project"               # ++++ CHANGE THIS VALUE ++++
+IPINFO_TOKEN="<IP_INFO_TOKEN>"           # ++++ CHANGE THIS VALUE ++++
+SQL_SERVER_ADMIN="SQL_SERVER_ADMIN"             # ++++ CHANGE THIS VALUE ++++
+SQL_SERVER_PASSWORD="<SQL_SERVER_PASSWORD>"      # ++++ CHANGE THIS VALUE ++++
+
 SAFE_PROJECT_NAME="htsproject"
 LOCATION="italynorth"
 RESOURCE_GROUP_SUFFIX="resource-group"
 GLOBAL_IP="$( wget -qO- https://ipecho.net/plain )"
-DEVELOPMENT="true" # Set to "true" if you want to create the shadow database
-IPINFO_TOKEN="da60eeb3c2c5e5"
+DEVELOPMENT="false" # Set to "true" if you want to create the shadow database
 
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -17,8 +20,6 @@ SQL_SERVR_SUFFIX="sql-server"
 SQL_DATABASE_SUFFIX="database"
 SQL_SHADOW_DATABASE_SUFFIX="shadow"
 # ++++ CHANGE THESE VALUES ++++
-SQL_SERVER_ADMIN="sqladmin"
-SQL_SERVER_PASSWORD="P@ssw0rd1234"
 # END: SQL Server variables
 # ..........................
 # BEGIN: IoT Hub variables
@@ -47,7 +48,8 @@ SQL_DATABASE="$PROJECT_NAME-$SQL_DATABASE_SUFFIX"
 SQL_SHADOW_DATABASE="$PROJECT_NAME-$SQL_DATABASE_SUFFIX-$SQL_SHADOW_DATABASE_SUFFIX"
 IOT_HUB="$PROJECT_NAME-$IOT_HUB_SUFFIX"
 STORAGE_ACCOUNT="$SAFE_PROJECT_NAME$STORAGE_ACCOUNT_SUFFIX"
-FUNCTION_APP="$PROJECT_NAME-$FUNCTION_APP_SUFFIX"
+DEVICE_FUNCTION_APP="device-$PROJECT_NAME-$FUNCTION_APP_SUFFIX"
+MEAL_FUNCTION_APP="meal-$PROJECT_NAME-$FUNCTION_APP_SUFFIX"
 APPINSIGHTS_NAME="$PROJECT_NAME-$APPINSIGHTS_SUFFIX"
 STREAM_ANALYTICS_JOB="$PROJECT_NAME-$STREAM_ANALYTICS_JOB_SUFFIX"
 STATIC_WEB_APP="$PROJECT_NAME-$STATIC_WEB_APP_SUFFIX"
