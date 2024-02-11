@@ -33,7 +33,7 @@ export async function findMeasures(
   } else {
     var measures = await prisma.measure.findMany({
       orderBy: {
-        datetime: "asc",
+        datetime: "desc",
       },
       where: {
         datetime: {
