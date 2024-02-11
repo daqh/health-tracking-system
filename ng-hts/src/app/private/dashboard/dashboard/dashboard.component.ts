@@ -5,6 +5,7 @@ import { environment } from 'src/environment/environment';
 import { Chart } from 'chart.js';
 import { MealService } from '../../meal/meal.service';
 import { MeasureService } from '../../measure/measure.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-dashboard',
@@ -57,7 +58,10 @@ export class DashboardComponent implements OnInit {
   public meals: any[] = [];
 
   public totalKcal = 0;
-  public totalCarbohydrates = 0;
+
+  public todayAverageWeight = 0;
+  public todayTotalSteps = 0;
+  public todayTotalDistance = 0;
 
   ngOnInit(): void {
     this.mealService.listMeals().subscribe((meals: any) => {
@@ -66,6 +70,27 @@ export class DashboardComponent implements OnInit {
         (acc: number, meal: any) => acc + meal.kcal,
         0
       );
+    });
+
+    this.measureService.listMeasures().subscribe((measures: any) => {
+      const measuresByDay = measures.map((measure: any) => {
+        return {
+          ...measure,
+          datetime: moment(measure.datetime).format('YYYY-MM-DD'),
+        };
+      });
+      const today = moment().format('YYYY-MM-DD');
+      const todayMeasures = measuresByDay.filter(
+        (measure: any) => measure.datetime === today
+      );
+      const todayWeights = todayMeasures.map((measure: any) => measure.weight).filter((weight: any) => weight !== null);
+      this.todayAverageWeight = todayWeights.reduce((acc: number, weight: number) => acc + weight, 0) / todayWeights.length;
+
+      const todaySteps = todayMeasures.map((measure: any) => measure.steps).filter((steps: any) => steps !== null);
+      this.todayTotalSteps = todaySteps.reduce((acc: number, steps: number) => acc + steps, 0);
+
+      const todayDistances = todayMeasures.map((measure: any) => measure.distance).filter((distance: any) => distance !== null);
+      this.todayTotalDistance = todayDistances.reduce((acc: number, distance: number) => acc + distance, 0);
     });
 
     this.chart = new Chart(

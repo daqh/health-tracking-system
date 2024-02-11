@@ -113,8 +113,18 @@
   <!-- Column 1 -->
   <div class="col-lg-5 mb-4 mb-lg-0">
     <div class="card h-100 shadow-lg rounded-4 border-0">
-      <div class="card-body">
-
+      <div
+        class="card-body text-center d-flex align-items-center justify-content-center"
+      >
+        <!-- Today's Average Weight -->
+        <div>
+          <h3 class="card-title">Today's Average Weight</h3>
+          <p class="card-text">
+            <span class="display-2"
+              >{{ todayAverageWeight | number : "1.0-1" }} kg</span
+            >
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -122,9 +132,20 @@
   <!-- Column 2 -->
   <div class="col-lg-7 mb-4 mb-lg-0">
     <div class="card h-100 shadow-lg rounded-4 border-0 bg-gradient">
-      <div class="card-body">
-        <div class="chart-container">
-          <canvas id="MyChart"></canvas>
+      <div
+        class="card-body text-center d-flex align-items-center justify-content-center"
+      >
+        <!-- Today's Average Weight -->
+        <div>
+          <h3 class="card-title">Today's Average Weight</h3>
+          <p class="card-text">
+            <span class="display-3 text-success"
+              >{{ todayTotalSteps | number }} steps</span>
+          </p>
+          <p class="card-text">
+            <span class="display-1 text-primary">{{ todayTotalDistance | number }} km</span
+            >
+          </p>
         </div>
       </div>
     </div>
