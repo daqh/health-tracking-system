@@ -22,6 +22,9 @@ export async function findMeals(
     where: {
       sub: sub,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 
   return {
