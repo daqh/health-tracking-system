@@ -3,6 +3,8 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AnimationOptions } from 'ngx-lottie';
 import { environment } from 'src/environment/environment';
 import { Chart } from 'chart.js';
+import { MealService } from '../../meal/meal.service';
+import { MeasureService } from '../../measure/measure.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,7 +12,11 @@ import { Chart } from 'chart.js';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private mealService: MealService,
+    private measureService: MeasureService
+  ) {}
 
   @ViewChild('weatherLoading') weatherLoading!: ElementRef;
   public weather = undefined as
@@ -48,7 +54,20 @@ export class DashboardComponent implements OnInit {
 
   public chart: any;
 
+  public meals: any[] = [];
+
+  public totalKcal = 0;
+  public totalCarbohydrates = 0;
+
   ngOnInit(): void {
+    this.mealService.listMeals().subscribe((meals: any) => {
+      this.meals = meals.slice(0, 5);
+      this.totalKcal = meals.reduce(
+        (acc: number, meal: any) => acc + meal.kcal,
+        0
+      );
+    });
+
     this.chart = new Chart(
       document.getElementById('MyChart') as HTMLCanvasElement,
       {

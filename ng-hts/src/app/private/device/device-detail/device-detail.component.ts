@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DeviceService } from '../device.service';
 import { DeviceDetail } from '../models/device.model';
@@ -18,7 +24,7 @@ export class DeviceDetailComponent implements AfterViewInit {
 
   @ViewChild('stepsChartCanvas') stepsChartCanvas!: ElementRef;
   @ViewChild('weightChartCanvas') weightChartCanvas!: ElementRef;
-  
+
   todaySteps = 0;
   lastWeight = 0;
 
@@ -36,56 +42,56 @@ export class DeviceDetailComponent implements AfterViewInit {
     this.deviceService.getDevice(id!, begin).subscribe((device) => {
       this.device = device;
 
-      const steps = this.device.prismaDevice.measures.map((m) => m.steps).filter((w) => w != null);
-      const distances = this.device.prismaDevice.measures.map((m) => m.distance).filter((w) => w != null);
-      this.isPedometer = steps.length > 0;
-      const weights = this.device.prismaDevice.measures.map((m) => m.weight).filter((w) => w != null);
-      this.isScale = weights.length > 0;
-      const datetimes = this.device.prismaDevice.measures.map((m) => moment(m.datetime).format('YYYY-MM-DD HH:mm'));
+      const measures = this.device.prismaDevice.measures.map((m) => {
+        return {
+          steps: m.steps,
+          distance: m.distance,
+          weight: m.weight,
+          datetime: moment(m.datetime).format('YYYY-MM-DD'),
+        };
+      });
 
-      // Aggregate the measures by day
-      let stepsByDay = [];
-      let distancesByDay = [];
-      let days = [];
+      const steps = new Map<string, number>();
+      const distances = new Map<string, number>();
+      const weights = new Map<string, number[]>();
+      const weightDays = new Map<string, number>();
 
-      for (let i = 0; i < datetimes.length; i++) {
-        let day = moment(datetimes[i]).format('YYYY-MM-DD');
-        if (days.indexOf(day) === -1) {
-          days.push(day);
-          stepsByDay.push(0);
-          distancesByDay.push(0);
+      measures.forEach((m) => {
+        steps.set(m.datetime, (steps.get(m.datetime) || 0) + (m.steps || 0));
+        distances.set(
+          m.datetime,
+          (distances.get(m.datetime) || 0) + (m.distance || 0)
+        );
+        if (m.weight) {
+          weights.set(m.datetime, [
+            ...(weights.get(m.datetime) || []),
+            m.weight,
+          ]);
         }
-        let index = days.indexOf(day);
-        stepsByDay[index] += steps[i] || 0;
-        distancesByDay[index] += distances[i] || 0;
-      }
-    
-      let weightsByDay = [];
-      let weightDays = [];
-      for (let i = 0; i < datetimes.length; i++) {
-        let day = moment(datetimes[i]).format('YYYY-MM-DD');
-        if (weightDays.indexOf(day) === -1) {
-          weightDays.push(day);
-          weightsByDay.push(0);
-        }
-        let index = weightDays.indexOf(day);
-        weightsByDay[index] = weights[i] || 0;
-      }
+      });
 
-      this.lastWeight = weightsByDay[weightsByDay.length - 1];
+      weights.forEach((w, k) => {
+        weightDays.set(k, w.reduce((a, b) => a + b, 0) / w.length);
+      });
+      
+      console.log(steps);
+      console.log(distances);
+      console.log(weights);
+      console.log(weightDays);
 
-      this.todaySteps = stepsByDay[stepsByDay.length - 1];
+      this.todaySteps = steps.get(moment().format('YYYY-MM-DD')) || 0;
+      this.lastWeight = Array.from(weightDays.values()).pop() || 0;
 
       this.weightChart = new Chart(
         this.weightChartCanvas.nativeElement as HTMLCanvasElement,
         {
           type: 'line', //this denotes tha type of chart
           data: {
-            labels: weightDays,
+            labels: Array.from(weightDays.keys()),
             datasets: [
               {
                 type: 'line', //this denotes tha type of chart
-                data: weightsByDay,
+                data: Array.from(weightDays.values()),
                 borderColor: 'green',
                 label: 'Weight',
                 fill: true,
@@ -107,11 +113,11 @@ export class DeviceDetailComponent implements AfterViewInit {
         {
           type: 'bar', //this denotes tha type of chart
           data: {
-            labels: days,
+            labels: Array.from(steps.keys()),
             datasets: [
               {
                 type: 'line', //this denotes tha type of chart
-                data: distancesByDay,
+                data: Array.from(distances.values()),
                 borderColor: 'blue',
                 label: 'Distance',
                 fill: true,
@@ -119,7 +125,7 @@ export class DeviceDetailComponent implements AfterViewInit {
               {
                 type: 'bar', //this denotes tha type of chart
                 label: 'Steps',
-                data: stepsByDay,
+                data: Array.from(steps.values()),
                 backgroundColor: 'lightgreen',
               },
             ],
@@ -133,8 +139,6 @@ export class DeviceDetailComponent implements AfterViewInit {
           },
         }
       );
-
     });
   }
-
 }

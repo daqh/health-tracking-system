@@ -5,11 +5,11 @@
 </div>
 
 <div class="text-center">
-    <span *ngIf="todaySteps > 0" class="h2"><b>{{ todaySteps }}</b> passi misurati l'ultimo giorno!</span>
+    <span *ngIf="todaySteps > 0" class="h2"><b>{{ todaySteps }}</b> passi misurati oggi!</span>
 </div>
 
 <div class="text-center">
-    <span *ngIf="lastWeight > 0" class="h2"><b>{{ lastWeight }}</b> kg l'ultimo giorno.</span>
+    <span *ngIf="lastWeight > 0" class="h2"><b>{{ lastWeight | number }}</b> kg l'ultimo giorno.</span>
 </div>
 
 <div class="alert alert-warning" *ngIf="!isPedometer && !isScale">
