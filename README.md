@@ -10,6 +10,8 @@ Una caratteristica fondamentale, quando si lavora con dati sanitari, è la gover
 
 1. Eseguire il login ad un Account Azure mediante la CLI;
 
+1. Configurate un 
+
 1. Modificare [environment.sh](https://github.com/daqh/health-tracking-system/blob/main/environment.sh) definendo le impostazioni del tuo progetto;
 
 1. Eseguire il file `./install.sh`.
@@ -29,6 +31,14 @@ Di seguito è riportata l'architettura generale del sistema, progettato indipend
 ## Architettura Cloud
 
 ![Cloud Architecture](assets/Health%20Tracking%20System%20-%20Cloud%20Computing.drawio.png)
+
+Nell'immagine dell'architettura immediatamente precedente, sono indicati tre endpoint numerati, che rappresentano i punti di accesso pubblici all'applicazione:
+
+**(1)**: Frontend dell'applicazione
+
+**(2)**: Azure Functions
+
+**(3)**: Servizi per l'autenticazione esposti da Microsoft Entra ID
 
 ### Frontend
 
@@ -75,7 +85,8 @@ Reference: [Deploy to Azure Functions](https://prisma.io/docs/guides/deployment/
 - Implementare una gestione dei ruoli basata su Azure RBAC. Tali ruoli saranno i seguenti:
     - *Sottoscritore* - Può solo leggere le misurazioni raccolte dai dispositivi.
     - *Collaboratore* - Può leggere le misurazioni raccolte dai dispositivi e inserire nuovi dispositivi.
-    - *Amministratore* - Ha accesso completo a tutte le funzionalità del sistema
+    - *Amministratore* - Ha accesso completo a tutte le funzionalità del sistema.
+- Integrazione di modelli di intelligenza artificiale per fornire suggerimenti all'utente riguardo l'alimentazione.
 
 # Come disinstallare il progetto
 
