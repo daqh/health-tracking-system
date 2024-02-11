@@ -34,7 +34,7 @@ export async function retrieveDevice(
       include: {
         measures: {
           orderBy: {
-            datetime: "asc",
+            datetime: "desc",
           },
         },
       },
@@ -50,7 +50,7 @@ export async function retrieveDevice(
       include: {
         measures: {
           orderBy: {
-            datetime: "asc",
+            datetime: "desc",
           },
           where: {
             datetime: {
