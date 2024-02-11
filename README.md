@@ -6,6 +6,8 @@ health-tracking-system è un sistema Cloud-based ideato per il tracciamento di d
 
 Una caratteristica fondamentale, quando si lavora con dati sanitari, è la governance correlata alle informazioni che vengono raccolte.
 
+![Application Screenshot](assets/App-screenshot.png)
+
 ## Come installare il progetto
 
 1. Eseguire il login ad un Account Azure mediante la CLI;
