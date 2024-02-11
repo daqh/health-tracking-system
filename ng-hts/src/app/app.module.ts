@@ -37,10 +37,10 @@ export function playerFactory() {
 export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
     auth: {
-      clientId: '9957c3a0-ca9d-4422-86b6-e9c0a851dee8',
-      authority: 'https://healthtrackingsystem.b2clogin.com/healthtrackingsystem.onmicrosoft.com/b2c_1_susi_hts',
+      clientId: environment.msal.clientId,
+      authority: environment.msal.authority,
       redirectUri: environment.msal.redirectUri,
-      knownAuthorities: ['healthtrackingsystem.b2clogin.com'],
+      knownAuthorities: environment.msal.knownAuthorities,
       postLogoutRedirectUri: '/'
     },
     cache: {
