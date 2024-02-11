@@ -130,6 +130,11 @@ az stream-analytics output create --name $SQL_DATABASE --job-name $STREAM_ANALYT
 az staticwebapp create --name $STATIC_WEB_APP --resource-group $RESOURCE_GROUP
 echo -e "\tmsal: {" >> ng-hts/src/environment/environment.prod.ts
 echo -e "\t\tredirectUri:" "\"https://"$(az staticwebapp list | jq -r '.[0].defaultHostname')"\"", >> ng-hts/src/environment/environment.prod.ts
+
+echo -e "\t\tclientId:" "\""$MSAL_CLIENT_ID"\"", >> ng-hts/src/environment/environment.prod.ts
+echo -e "\t\tauthority:" "\""$MSAL_AUTHORITY"\"", >> ng-hts/src/environment/environment.prod.ts
+echo -e "\t\tknownAuthorities:" "[\""$MSAL_KNOWN_AUTHORITY"\"]", >> ng-hts/src/environment/environment.prod.ts
+
 echo -e "\t}," >> ng-hts/src/environment/environment.prod.ts
 echo "Creating the static web app $STATIC_WEB_APP to the environment $STATIC_WEB_APP_ENV"
 
