@@ -12,7 +12,7 @@ Una caratteristica fondamentale, quando si lavora con dati sanitari, è la gover
 
 1. Eseguire il login ad un Account Azure mediante la CLI;
 
-1. Configurate un 
+1. Configurate un tenant Microsoft Entra ID;
 
 1. Modificare [environment.sh](https://github.com/daqh/health-tracking-system/blob/main/environment.sh) definendo le impostazioni del tuo progetto;
 
