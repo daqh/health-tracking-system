@@ -84,10 +84,6 @@ Reference: [Deploy to Azure Functions](https://prisma.io/docs/guides/deployment/
 
 ## Implementazioni future
 
-- Implementare una gestione dei ruoli basata su Azure RBAC. Tali ruoli saranno i seguenti:
-    - *Sottoscritore* - Può solo leggere le misurazioni raccolte dai dispositivi.
-    - *Collaboratore* - Può leggere le misurazioni raccolte dai dispositivi e inserire nuovi dispositivi.
-    - *Amministratore* - Ha accesso completo a tutte le funzionalità del sistema.
 - Integrazione di modelli di intelligenza artificiale per fornire suggerimenti all'utente riguardo l'alimentazione.
 
 # Come disinstallare il progetto
